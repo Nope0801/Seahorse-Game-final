@@ -20,6 +20,9 @@ public class ImagesReader {
     private BufferedImage greencircle;
     private BufferedImage redcircle;
     private BufferedImage yellowcircle;
+
+    private BufferedImage background1;
+    
     public ImagesReader(){
         try{
             this.tileImage = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
@@ -36,6 +39,7 @@ public class ImagesReader {
             this.greencircle = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
             this.redcircle = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
             this.yellowcircle = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
+            this.background1 = ImageIO.read(null)
         }catch(IOException e){
             System.out.println("Lỗi load hình ảnh: " + e.getMessage());
         }      
