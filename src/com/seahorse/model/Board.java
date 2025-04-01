@@ -61,9 +61,10 @@ public class Board {
         }
     }
     public BufferedImage getTile(int x, int y){
-        if (x >= 0 && x < SIZE && y >= 0 && y < SIZE) {
+        if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
             return map[y][x];
         }
+        return null;
     }
 
     

@@ -1,8 +1,5 @@
 package com.seahorse.model;
 
-import java.awt.Color;
-import java.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
