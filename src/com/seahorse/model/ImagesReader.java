@@ -22,7 +22,7 @@ public class ImagesReader {
     private BufferedImage yellowcircle;
 
     private BufferedImage background1;
-    
+
     public ImagesReader(){
         try{
             this.tileImage = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
@@ -44,6 +44,7 @@ public class ImagesReader {
             System.out.println("Lỗi load hình ảnh: " + e.getMessage());
         }      
     }
+
     public BufferedImage getTileImage() {
         return tileImage;
     }

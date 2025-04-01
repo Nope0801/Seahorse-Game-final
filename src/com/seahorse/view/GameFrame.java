@@ -11,7 +11,7 @@ public class GameFrame {
     // private Game game;
     // private GameController gameController;
 
-    public GameFrame(){
+    public GameFrame() {
         window = new JFrame("SeaHorse Game");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
@@ -24,6 +24,6 @@ public class GameFrame {
         window.setVisible(true);
         // menuView = new MenuView();
         // MenuController menuController = new MenuContainer(menuView, this::startGame);
-          
+
     }
 }

@@ -8,7 +8,7 @@ public class Game {
     private Dice dice;
     private int currentPlayerIndex;
 
-    public Game(){
-        
+    public Game() {
+
     }
 }
