@@ -1,5 +1,8 @@
 package com.seahorse.controller;
 
+import com.seahorse.model.GameSetting;
+import com.seahorse.model.PaintData;
+import com.seahorse.utils.PaintComponent;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
@@ -38,10 +41,12 @@ public class GameThread extends JPanel implements Runnable {
         // grp2D.drawImage(image, 0, 0, screenWidth, screenHeight,this);
         // grp.fillRect(2 * 32, 1 * 32, 32, 32);
         // matchManager.Paint(grp);
+        for (PaintComponent paintEntity : PaintData.paintEntities) {
+            paintEntity.Paint(grp);
+        }
     }
 
     Thread gameThread;
-    int maxFPS = 60;
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -49,7 +54,7 @@ public class GameThread extends JPanel implements Runnable {
     }
 
     public void run() {
-        long timePerFrame = 1000000000 / maxFPS;
+        long timePerFrame = 1000000000 / GameSetting.maxFPS;
         repaint();
         // Start();
         while (gameThread != null) {
