@@ -33,14 +33,14 @@ public class GameThread extends JPanel implements Runnable {
     // image = null;
     // }
     // }
+
     @Override
     public void paintComponent(Graphics grp) {
         super.paintComponent(grp);
         Graphics2D grp2D = (Graphics2D) (grp);
         // ImagePanel("./assets/bgr_img.jpg");
         // grp2D.drawImage(image, 0, 0, screenWidth, screenHeight,this);
-        // grp.fillRect(2 * 32, 1 * 32, 32, 32);
-        // matchManager.Paint(grp);
+        // grp.setColor(Color.BLACK);
         for (PaintComponent paintEntity : PaintData.paintEntities) {
             paintEntity.Paint(grp);
         }
@@ -53,10 +53,9 @@ public class GameThread extends JPanel implements Runnable {
         gameThread.start();
     }
 
+    @Override
     public void run() {
         long timePerFrame = 1000000000 / GameSetting.maxFPS;
-        repaint();
-        // Start();
         while (gameThread != null) {
             long startFrameTime = System.nanoTime();
             repaint();
@@ -66,6 +65,7 @@ public class GameThread extends JPanel implements Runnable {
                 if (remainFrameTime < 0) {
                     remainFrameTime = 0;
                 }
+                System.out.println("aaa");
                 // dùng while thay vì sleep để giảm thiểu sai số
                 Thread.sleep(remainFrameTime / 1000000);
             } catch (InterruptedException e) {
