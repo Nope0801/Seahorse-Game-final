@@ -2,13 +2,17 @@ package com.seahorse.model;
 
 import java.util.List;
 
+//Lưu trữ tất cả entities
 public class Game {
+    //PLAYER
     private List<Player> players;
-    private Board board;
     private Dice dice;
     private int currentPlayerIndex;
 
-    public Game() {
+    //BOARD
+    private Board board;
 
+    public Game() {
+        
     }
 }

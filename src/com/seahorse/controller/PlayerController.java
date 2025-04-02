@@ -1,5 +1,5 @@
 package com.seahorse.controller;
 
-public class GameController {
+public class PlayerController {
     
 }
