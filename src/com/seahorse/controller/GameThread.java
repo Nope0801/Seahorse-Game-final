@@ -16,12 +16,15 @@ public class GameThread extends JPanel implements Runnable {
 
     public int boardStartX = (maxScreenCol - 15) / 2;
     public int boardStartY = (maxScreenRow - 15) / 2;
-
+    // private Board board;
+    
     public GameThread() {
         // // // this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         // // this.setBackground(new Color(219, 253, 255));
         // // this.setDoubleBuffered(true);
         this.setLayout(null); // make button free positon in screen
+        // board = new Board();
+        // board.loadMapFromFile("./../../../resources/map/map03.txt");
     }
 
     // private void loadBackroundImage(){
@@ -38,6 +41,7 @@ public class GameThread extends JPanel implements Runnable {
     public void paintComponent(Graphics grp) {
         super.paintComponent(grp);
         Graphics2D grp2D = (Graphics2D) (grp);
+        // board.Paint(grp);
         // ImagePanel("./assets/bgr_img.jpg");
         // grp2D.drawImage(image, 0, 0, screenWidth, screenHeight,this);
         // grp.setColor(Color.BLACK);
@@ -65,7 +69,6 @@ public class GameThread extends JPanel implements Runnable {
                 if (remainFrameTime < 0) {
                     remainFrameTime = 0;
                 }
-                System.out.println("aaa");
                 // dùng while thay vì sleep để giảm thiểu sai số
                 Thread.sleep(remainFrameTime / 1000000);
             } catch (InterruptedException e) {

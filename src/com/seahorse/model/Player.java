@@ -1,6 +1,10 @@
 package com.seahorse.model;
 
 public class Player{
-    private String color;
-    public int playerIndex;
+    // private String color;
+    // public int playerIndex;
+
+    public enum PlayerColor{
+        
+    }
 }

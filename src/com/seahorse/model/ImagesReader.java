@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ImagesReader {
-    private BufferedImage tileImage;
+    private BufferedImage tileImage1;
     private BufferedImage tileImage2;
     private BufferedImage blueflat;
     private BufferedImage blue;
@@ -25,27 +25,27 @@ public class ImagesReader {
 
     public ImagesReader(){
         try{
-            this.tileImage = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.tileImage2 = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.blueflat = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.blue = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.greenflat = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.green = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.redflat = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.red = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.yellowflat = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.yellow = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.bluecircle = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.greencircle = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.redcircle = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
-            this.yellowcircle = ImageIO.read(new File("../../resources/sprites/Land/blocks_white.png"));
+            this.tileImage1 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_white.png"));
+            this.tileImage2 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_white_flat.png"));
+            this.blueflat = ImageIO.read(new File("./src/resources/sprites/Land/blocks_blue_flat.png"));
+            this.blue = ImageIO.read(new File("./src/resources/sprites/Land/blocks_blue.png"));
+            this.greenflat = ImageIO.read(new File("./src/resources/sprites/Land/blocks_green_flat.png"));
+            this.green = ImageIO.read(new File("./src/resources/sprites/Land/blocks_green.png"));
+            this.redflat = ImageIO.read(new File("./src/resources/sprites/Land/blocks_red_flat.png"));
+            this.red = ImageIO.read(new File("./src/resources/sprites/Land/blocks_red.png"));
+            this.yellowflat = ImageIO.read(new File("./src/resources/sprites/Land/blocks_yellow_flat.png"));
+            this.yellow = ImageIO.read(new File("./src/resources/sprites/Land/blocks_yellow.png"));
+            this.bluecircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_blue_circle_flat.png"));
+            this.greencircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_green_circle_flat.png"));
+            this.redcircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_red_circle_flat.png"));
+            this.yellowcircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_yellow_circle_flat.png"));
         }catch(IOException e){
-            System.out.println("Lỗi load hình ảnh: " + e.getMessage());
+            System.out.println("ImagesReader.java: " + e.getMessage());
         }      
     }
 
-    public BufferedImage getTileImage() {
-        return tileImage;
+    public BufferedImage getTileImage1() {
+        return tileImage1;
     }
 
     public BufferedImage getTileImage2() {
