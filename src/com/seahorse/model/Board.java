@@ -143,6 +143,25 @@ public class Board implements PaintComponent{
         }
     }
 
+    //doi toa do
+    private int[] changeRelativeCoordinates(int row, int col){
+        int[] result = new int[2];
+        result[0] = startX + (col - row) * TILE_WIDTH / 2;
+        result[1] = startY + (col + row) * TILE_HEIGHT / 2;
+        return result;
+        
+    }
+
+    //getnext
+    private int[] getNextTile(int index){
+        int[] result = new int[2];
+        if(index >= 52) index = -1;
+        result[0] = path[index+1][0];
+        result[1] = path[index+1][0];
+        return  result;
+    }
+
+
     // }
     // public Board(){
     // loadImages();
