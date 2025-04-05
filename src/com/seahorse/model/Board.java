@@ -11,7 +11,16 @@ import java.io.InputStreamReader;
 
 public class Board implements PaintComponent{
     private BufferedImage[][] map;
-    private TileType[][] TilesType;
+    private TileType[][] tilesType;
+    
+    public static int[][] path = {{1, 6}, {2,6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {6, 5}, { 6, 4}, {6, 3} , { 6, 2}, {6, 1} , {6, 0}, {7, 0},{8,1},{8,2},{8,3},{8,4},{8,5},{8,6},{9,6},{10,6},{11,6},{12,6},{13,6},{14,6},{14,7},{13,8},{12,8},{11, 8}, {10,8}, {9,8}, {8,8},{8,9},{8,10},{8,11},{8,12},{8,13},{8,14},{7,14},{6,13},{6,12},{6,11},{6,10},{6,9},{6,8},{5,8},{4,8},{3,8},{2,8},{1,8},{0,8},{0,7}};
+    public static int[][] winPath = {{7,0, 0}, {7,1, 0},{7,2, 0},{7,3, 0},{7,4, 0},{7,5, 0},{7,6, 0},{0,7,0},{1,7, 0},{2,7, 0},{3,7, 0},{4,7, 0},{5,7, 0},{6,7, 0}, {7,14,0},{7,13,0}, {7,12,0},{7,11,0},{7,10,0},{7,9,0},{7,8,0}, {14,7, 0}, {13,7,0}, {12, 7,0}, {11, 7,0}, {10, 7,0}, {9, 7,0}, {8, 7, 0}};
+    public int[][][] startStableCoordinates = {
+        {{10,1},{10,4},{13,1},{13,4}},
+        {{1,1},{1,4},{4, 1},{4, 4}},
+        {{1, 10}, {1, 13}, {4, 10}, {4, 13}},
+        {{10,10}, {10,13}, {13,10}, {13,13}},
+    };
     
     private enum TileType {
         T1, T2, BF, B, G, GF, RF, R, Y, YF, BC, YC, RC, GC;
@@ -49,6 +58,8 @@ public class Board implements PaintComponent{
             while ((line = br.readLine()) != null && y < BOARD_SIZE) {
                 String[] tiles = line.trim().split(" ");
                 for (int x = 0; x < BOARD_SIZE && x < tiles.length; x++) {
+                    TileType tileType = parseTileType(tiles[x]);
+                    tilesType[y][x] = tileType;
                     map[y][x] = getImageFromTileType(tiles[x]);
                 }
                 y++;
@@ -95,7 +106,22 @@ public class Board implements PaintComponent{
         };
     }
 
-    public BufferedImage getTile(int x, int y) {
+    public BufferedImage getTileIMG(int x, int y) {
+        if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
+            return map[y][x];
+        }
+        return null;
+    }
+    
+    private TileType parseTileType(String type) {
+        try {
+            return TileType.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Board.java: Không nhận diện được loại ô '" + type + "', đặt thành mặc định.");
+        }
+        return null;
+    }
+    public BufferedImage getTileEnum(int x, int y) {
         if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
             return map[y][x];
         }
