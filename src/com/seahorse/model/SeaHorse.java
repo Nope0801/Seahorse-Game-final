@@ -137,10 +137,11 @@ public class SeaHorse {
 
     public void setLinePixels(List<int[]> linePixels) {
         this.linePixels = linePixels;
-        pixelSpeed = linePixels.size() / (GameSetting.maxFPS * 1);
+        pixelSpeed = (int) ((float) linePixels.size() / (GameSetting.maxFPS * 0.1f));
         if (pixelSpeed == 0) pixelSpeed = 1;
     }
-
+    
+    
     public int getCurrentIndexOnLinePixels() {
         if (currentIndexOnLinePixels >= linePixels.size()) currentIndexOnLinePixels = linePixels.size() - 1;
         return currentIndexOnLinePixels;

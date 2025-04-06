@@ -35,7 +35,7 @@ public class PlayerView implements PaintComponent{
         for (int i = 0; i < 5; i++) {
             if (buttonsActive[i]) {
                 int c[] = Board.changeRelativeCoordinates(buttonPos[i][0], buttonPos[i][1]);
-                g.drawImage(buttonAnimation.get(currentAnimationIndex), c[0], c[1] - 64, 64, 64, null);
+                g.drawImage(buttonAnimation.get(currentAnimationIndex), c[0], c[1] - 90, 64, 64, null);
             }
         }   
     }
