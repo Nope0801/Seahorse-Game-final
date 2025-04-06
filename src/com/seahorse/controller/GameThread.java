@@ -2,7 +2,9 @@ package com.seahorse.controller;
 
 import com.seahorse.model.GameSetting;
 import com.seahorse.model.PaintData;
+import com.seahorse.model.UpdateData;
 import com.seahorse.utils.PaintComponent;
+import com.seahorse.utils.UpdateComponent;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
@@ -56,16 +58,17 @@ public class GameThread extends JPanel implements Runnable {
     @Override
     public void run() {
         long timePerFrame = 1000000000 / GameSetting.maxFPS;
+        GameController gameController = new GameController(this);
         while (gameThread != null) {
             long startFrameTime = System.nanoTime();
             repaint();
-            // Update();
+            Update();
             try {
                 long remainFrameTime = timePerFrame - (System.nanoTime() - startFrameTime);
                 if (remainFrameTime < 0) {
                     remainFrameTime = 0;
                 }
-                System.out.println("aaa");
+                // System.out.println("aaa");
                 // dùng while thay vì sleep để giảm thiểu sai số
                 Thread.sleep(remainFrameTime / 1000000);
             } catch (InterruptedException e) {
@@ -73,8 +76,10 @@ public class GameThread extends JPanel implements Runnable {
             }
         }
     }
-    // public void run(){
 
-    // }
-
+    private void Update() {
+        for (UpdateComponent update : UpdateData.updateComponents) {
+            update.Update();
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.seahorse.model;
 
+import com.seahorse.controller.SeaHorseController;
+
 public class EntitiesMapData {
     private EntityType[][] entitiesMap = new EntityType[15][15];
 
@@ -7,9 +9,9 @@ public class EntitiesMapData {
         return entitiesMap;
     }
 
-    private SeaHorse[][] seaHorsesMap = new SeaHorse[15][15];
+    private SeaHorseController[][] seaHorsesMap = new SeaHorseController[15][15];
 
-    public SeaHorse[][] GetSeaHorsesMap() {
+    public SeaHorseController[][] GetSeaHorsesMap() {
         return seaHorsesMap;
     }
 }

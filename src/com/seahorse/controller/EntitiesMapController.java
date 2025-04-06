@@ -2,7 +2,6 @@ package com.seahorse.controller;
 
 import com.seahorse.model.EntitiesMapData;
 import com.seahorse.model.EntityType;
-import com.seahorse.model.SeaHorse;
 
 public class EntitiesMapController {
     private EntitiesMapData entitiesMapData = new EntitiesMapData();
@@ -19,11 +18,11 @@ public class EntitiesMapController {
         entitiesMapData.GetEntitiesMap()[x][y] = EntityType.Null;
     }
 
-    public SeaHorse GetTileSeaHorse(int x, int y) {
+    public SeaHorseController GetTileSeaHorse(int x, int y) {
         return entitiesMapData.GetSeaHorsesMap()[x][y];
     }
 
-    public void AddSeaHorseToTile(SeaHorse seaHorse, int x, int y) {
+    public void AddSeaHorseToTile(SeaHorseController seaHorse, int x, int y) {
         entitiesMapData.GetSeaHorsesMap()[x][y] = seaHorse;
     }
 
