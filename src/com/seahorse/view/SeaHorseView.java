@@ -32,10 +32,10 @@ public class SeaHorseView implements PaintComponent{
     @Override
     public void Paint(Graphics g) {
         if (flip) {
-            g.drawImage(currentAnimation.get(currentAnimationIndex), x + 64, y, -64, 64, null);
+            g.drawImage(currentAnimation.get(currentAnimationIndex), x + 64, y-40, -64, 64, null);
         }
         else {
-            g.drawImage(currentAnimation.get(currentAnimationIndex), x, y, 64, 64, null);
+            g.drawImage(currentAnimation.get(currentAnimationIndex), x, y-40, 64, 64, null);
         }
     }    
 

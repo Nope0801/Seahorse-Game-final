@@ -55,7 +55,7 @@ public class Game {
     public void setPlayersController(int playersNumber, GameThread panel, GameController gameController) {
         this.playersNumber = playersNumber;
         board = new Board();
-        board.loadMapFromFile("src/resources/map/map03.txt");
+        board.loadMapFromFile("./../../../resources/map/map03.txt");
         for (int i = 0; i < playersNumber; i++) {
             playersController.add(new PlayerController(panel, gameController, board.startStableCoordinates[i], board.deployCoordinates[i]));
         }
