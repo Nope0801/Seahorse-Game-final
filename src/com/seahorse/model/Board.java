@@ -42,6 +42,7 @@ public class Board implements PaintComponent{
 
     public Board() {
         map = new BufferedImage[BOARD_SIZE][BOARD_SIZE];
+        tilesType = new TileType[BOARD_SIZE][BOARD_SIZE];
         images = new ImagesReader();
     }
 
