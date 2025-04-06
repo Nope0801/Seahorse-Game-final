@@ -21,14 +21,19 @@ public class SeaHorse {
     private List<int[]> linePixels;
     private int pixelSpeed;
 
+    private String color = "";
     private ArrayList<BufferedImage> seaHorseMoveAnimation = new ArrayList<>();
     private ArrayList<BufferedImage> seaHorseIdleAnimation = new ArrayList<>();
-    private File seaHorseMoveAnimationFolder[] = new File("src/resources/sprites/SeaHorse/default/move_animation").listFiles();
-    private File seaHorseIdleAnimationFolder[] = new File("src/resources/sprites/SeaHorse/default/idle_animation").listFiles();
+    private File seaHorseMoveAnimationFolder[];
+    private File seaHorseIdleAnimationFolder[];
 
 
-    public SeaHorse() {
+    public SeaHorse(String c) {
         state = SeaHorseState.InStable;
+
+        color = c;
+        seaHorseMoveAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/default/move_animation").listFiles();
+        seaHorseIdleAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/default/idle_animation").listFiles();
 
         for (File file : seaHorseMoveAnimationFolder) {
             seaHorseMoveAnimation.add(ImageFromPath.GetBufferedImageFromPath(file.getPath()));

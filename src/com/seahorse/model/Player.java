@@ -78,4 +78,8 @@ public class Player{
     public ArrayList<BufferedImage> getButtonAnim() {
         return buttonAnim;
     }
+
+    public String getColor() {
+        return color;
+    }
 }

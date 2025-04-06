@@ -57,7 +57,7 @@ public class Game {
         board = new Board();
         board.loadMapFromFile("./../../../resources/map/map03.txt");
         for (int i = 0; i < playersNumber; i++) {
-            playersController.add(new PlayerController(panel, gameController, board.startStableCoordinates[i], board.deployCoordinates[i]));
+            playersController.add(new PlayerController(panel, gameController, board.startStableCoordinates[i], board.deployCoordinates[i], i));
         }
     }
 

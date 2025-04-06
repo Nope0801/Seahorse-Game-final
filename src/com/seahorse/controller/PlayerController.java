@@ -10,10 +10,24 @@ public class PlayerController {
     private Player playerData;
     private PlayerView playerView;
 
-    public PlayerController(GameThread panel, GameController _gameController, int[][] spawnPos, int[] startPos) {
+    String color = "";
+    public PlayerController(GameThread panel, GameController _gameController, int[][] spawnPos, int[] startPos, int playerIndex) {
         gameController = _gameController;
-
-        playerData = new Player("red", 0, spawnPos, startPos, this);
+        switch (playerIndex) {
+            case 0:
+                color = "red";
+                break;
+            case 1:
+                color = "blue";
+                break;
+            case 2:
+                color = "green";
+                break;
+            case 3:
+                color = "yellow";
+                break;
+        }
+        playerData = new Player(color, playerIndex, spawnPos, startPos, this);
         playerView = new PlayerView(playerData.getButtonAnim());
 
         for (int i = 0; i < 4; i++) {
@@ -104,5 +118,9 @@ public class PlayerController {
 
     public Player getPlayerData() {
         return playerData;
+    }
+
+    public String getColor() {
+        return color;
     }
 }

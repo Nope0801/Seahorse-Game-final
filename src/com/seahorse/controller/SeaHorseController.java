@@ -8,7 +8,7 @@ import com.seahorse.view.SeaHorseView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeaHorseController implements UpdateComponent{
+public class SeaHorseController implements UpdateComponent {
     public PlayerController player;
     private SeaHorse seaHorseData;
     private SeaHorseView seaHorseView;
@@ -18,7 +18,7 @@ public class SeaHorseController implements UpdateComponent{
         UpdateComponent.AddUpdate(this);
 
         player = _player;
-        seaHorseData = new SeaHorse();
+        seaHorseData = new SeaHorse(player.getColor());
         seaHorseData.setRelativeX(x);
         seaHorseData.setRelativeY(y);
         seaHorseData.setX(Board.changeRelativeCoordinates(x, y)[0]);
@@ -62,6 +62,10 @@ public class SeaHorseController implements UpdateComponent{
     }
     
     public void Move(int step, int relativex2, int relativey2) {
+        if (step == 0) {
+            seaHorseView.setCurrentAnimation(seaHorseData.getSeaHorseIdleAnimation());
+            return;
+        }
         seaHorseData.setRelativeX(relativex2);
         seaHorseData.setRelativeY(relativey2);
         seaHorseData.setX1(seaHorseData.getX());
@@ -133,11 +137,11 @@ public class SeaHorseController implements UpdateComponent{
         seaHorseData.setState(SeaHorseState.EndStep);
         seaHorseData.setStepLeft(seaHorseData.getStepLeft() - 1);
         // System.out.println(seaHorseData.getStepLeft());
-        seaHorseView.setCurrentAnimation(seaHorseData.getSeaHorseIdleAnimation());
         EndAction();
     }
 
     public void EndAction() {
+        seaHorseView.setCurrentAnimation(seaHorseData.getSeaHorseIdleAnimation());
         if (seaHorseData.getStepLeft() == 0) {
             seaHorseData.setState(SeaHorseState.EndAction);
             // System.out.println(seaHorseData.getState());
