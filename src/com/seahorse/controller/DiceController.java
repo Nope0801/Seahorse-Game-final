@@ -14,8 +14,8 @@ public class DiceController{
     }
 
     public int Roll() {
-        int number = diceData.getRandom().nextInt(6) + 1;
-        // int number = 6;
+        // int number = diceData.getRandom().nextInt(6) + 1;
+        int number = 6;
         diceView.SetDiceImage(diceData.getDiceImages(number));
         return number;
     }
