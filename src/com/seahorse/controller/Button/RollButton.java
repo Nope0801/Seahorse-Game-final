@@ -73,4 +73,9 @@ public class RollButton implements PaintComponent{
         button.setVisible(true);
         currentImg = unpressImg;
     }
+
+    public void UnactiveButton() {
+        button.setVisible(false);
+        currentImg = pressedImg;
+    }
 }

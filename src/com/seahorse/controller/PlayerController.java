@@ -64,7 +64,7 @@ public class PlayerController {
             //Neu co
                 //Hien thi nut di chuyen cua seahorse
         for (int i = 0; i < 4; i++) {
-            if (playerData.getSeaHorses()[i].getState() == SeaHorseState.CanMove) {
+            if (playerData.getSeaHorses()[i].getState() == SeaHorseState.CanMove && !playerData.getSeaHorses()[i].getSeaHorseData().isInGoal) {
                 c = Board.changeRelativeCoordinates(playerData.getSeaHorses()[i].getRelative()[0], playerData.getSeaHorses()[i].getRelative()[1]);
                 playerData.getChooseSeaHorseButtons()[i].setBounds(c[0], c[1] - 64, 64, 128);
                 playerData.getChooseSeaHorseButtons()[i].setVisible(true);
@@ -122,5 +122,13 @@ public class PlayerController {
 
     public String getColor() {
         return color;
+    }
+
+    public int getSeaHorsesInGoalNumber() {
+        int c = 0;
+        for (SeaHorseController sh : playerData.getSeaHorses()) {
+            c += (sh.getSeaHorseData().isInGoal) ? 1 : 0;
+        }
+        return c;
     }
 }

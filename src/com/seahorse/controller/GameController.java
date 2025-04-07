@@ -1,6 +1,7 @@
 package com.seahorse.controller;
 
 import com.seahorse.model.Board;
+import com.seahorse.model.Board.TileType;
 import com.seahorse.model.Game;
 import com.seahorse.model.GameSetting;
 import com.seahorse.utils.SeaHorseState;
@@ -12,19 +13,20 @@ public class GameController implements UpdateComponent{
     private Game game;
     private GameView gameView;
 
+    private boolean canShowActive = false;
     public GameController(GameThread _panel) {
         panel = _panel;
         UpdateComponent.AddUpdate(this);
         
         game = new Game();
 
-        gameView = new GameView(game.getBackgroundImage(), panel);
+        gameView = new GameView(game.getBackgroundImage(), panel, game);
 
         game.setBoard();
         
         game.setEntitiesMap();
 
-        game.setPlayersController(4, panel, this);
+        game.setPlayersController(1, panel, this);
         game.setCurrentPlayerIndex(0);
 
         game.setSkipButton(GameSetting.screenWidth / 2 - 275, GameSetting.screenHeight - 117, this);
@@ -33,13 +35,16 @@ public class GameController implements UpdateComponent{
         game.setRollButton(GameSetting.screenWidth / 2 + 75, GameSetting.screenHeight - 117, this);
         panel.add(game.getRollButton().getButton());
 
-        game.setDiceController(game);
+        game.setDiceController(game, panel);
         game.getDiceController().SetDiceDefault();
+
+        game.setWinMenu(0);
     }
 
     @Override
     public void Update() {
         SeaHorseMonitor();
+        CheckPlayersProgress();
     }
 
     public void RollDice() {
@@ -109,9 +114,19 @@ public class GameController implements UpdateComponent{
                     }
                 }
             }
-        }
-        else if (sh.getState() == SeaHorseState.StartStep && sh.getSeaHorseData().isInFinish) {
-
+        } else if (sh.getState() == SeaHorseState.StartStep && sh.getSeaHorseData().isInFinish) {
+            int nextTile[] = {game.getBoard().winPath[game.getDiceNumber() + (6 * game.getCurrentPlayerIndex())][0], game.getBoard().winPath[game.getDiceNumber() + (6 * game.getCurrentPlayerIndex())][1]};
+            if (CheckTile(nextTile[0], nextTile[1])) {
+                RemoveSeaHorseOnMap(sh.getRelative()[0], sh.getRelative()[1]);
+                AddSeaHorseOnMap(sh, nextTile[0], nextTile[1]);
+                sh.Move(1, nextTile[0], nextTile[1]);
+                sh.setState(SeaHorseState.IsStep);
+                sh.getSeaHorseData().isInGoal = true;
+            }
+            else {
+                sh.Move(0, sh.getRelative()[0], sh.getRelative()[1]);
+                sh.setState(SeaHorseState.EndAction);
+            }
         }
 
         //Kiem tra trang thai co phai end ko
@@ -123,9 +138,24 @@ public class GameController implements UpdateComponent{
         if (sh.getState() == SeaHorseState.EndStep) {
             if (sh.getRelative()[0] == 7 || sh.getRelative()[1] == 7) {
                 System.out.println(game.getBoard().getTileEnum(sh.getRelative()[0], sh.getRelative()[1]));
-                // sh.Move(0, sh.getRelative()[0], sh.getRelative()[1]);
-                // sh.setState(SeaHorseState.EndAction);
-                // sh.getSeaHorseData().isInFinish = true;
+                TileType currentType = TileType.RC;
+                switch (game.getCurrentPlayerIndex()) {
+                    case 1:
+                        currentType = TileType.BC;
+                        break;
+                    case 2:
+                        currentType = TileType.GC;
+                        break;
+                    case 3:
+                        currentType = TileType.YC;  
+                        break;
+                }
+                if (currentType == game.getBoard().getTileEnum(sh.getRelative()[0], sh.getRelative()[1])) {
+                    sh.setState(SeaHorseState.EndStep);
+                    System.out.println(sh.getSeaHorseData().getStepLeft());
+                    sh.Move(0, sh.getRelative()[0], sh.getRelative()[1]);
+                    sh.getSeaHorseData().isInFinish = true;
+                }
             }
             sh.EndAction();
         }
@@ -172,5 +202,23 @@ public class GameController implements UpdateComponent{
 
     public Game getGameData() {
         return game;
+    }
+
+    private boolean isEnd = false;
+    public void CheckPlayersProgress() {
+        int index = -1;
+        for (int i = 0; i < game.getPlayersNumber(); i++) {
+            if (game.getPlayersController().get(i).getSeaHorsesInGoalNumber() == 4){
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) return;
+        
+        isEnd = true;
+        game.getRollButton().UnactiveButton();
+        game.getSkipButton().UnactiveButton();
+        game.getWinMenu().setIndex(index);
     }
 }
