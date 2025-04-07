@@ -132,9 +132,9 @@ public class Board implements PaintComponent{
         }
         return null;
     }
-    public BufferedImage getTileEnum(int x, int y) {
+    public TileType getTileEnum(int x, int y) {
         if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
-            return map[y][x];
+            return tilesType[y][x];
         }
         return null;
     }

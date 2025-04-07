@@ -33,4 +33,8 @@ public class DiceView implements PaintComponent{
     public void SetDiceImage(BufferedImage _diceImage) {
         diceImage = _diceImage;
     }
+
+    public void setBorderImage(BufferedImage _diceBorder) {
+        diceBorder = _diceBorder;
+    } 
 }

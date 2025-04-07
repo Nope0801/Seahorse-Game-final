@@ -3,6 +3,7 @@ package com.seahorse.model;
 import com.seahorse.controller.Button.RollButton;
 import com.seahorse.controller.Button.SkipButton;
 import com.seahorse.controller.DiceController;
+import com.seahorse.controller.EntitiesMapController;
 import com.seahorse.controller.GameController;
 import com.seahorse.controller.GameThread;
 import com.seahorse.controller.PlayerController;
@@ -25,7 +26,7 @@ public class Game {
 
     //BOARD
     private Board board;
-    private EntitiesMapData entitiesMap;
+    private EntitiesMapController entitiesMap;
 
     //PLAYER
     private ArrayList<PlayerController> playersController = new ArrayList<PlayerController>();
@@ -38,7 +39,6 @@ public class Game {
 
     public Game() {
         backgroundImage = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Background/bgr_img.jpg");
-        entitiesMap = new EntitiesMapData();
     }
 
     public BufferedImage getBackgroundImage() {
@@ -54,19 +54,17 @@ public class Game {
 
     public void setPlayersController(int playersNumber, GameThread panel, GameController gameController) {
         this.playersNumber = playersNumber;
-        board = new Board();
-        board.loadMapFromFile("./../../../resources/map/map03.txt");
         for (int i = 0; i < playersNumber; i++) {
             playersController.add(new PlayerController(panel, gameController, board.startStableCoordinates[i], board.deployCoordinates[i], i));
         }
     }
 
-    public EntitiesMapData getEntitiesMap() {
+    public EntitiesMapController getEntitiesMap() {
         return entitiesMap;
     }
 
-    public void setEntitiesMap(EntitiesMapData entitiesMap) {
-        this.entitiesMap = entitiesMap;
+    public void setEntitiesMap() {
+        entitiesMap = new EntitiesMapController();
     }
 
     public int getCurrentPlayerIndex() {
@@ -97,8 +95,8 @@ public class Game {
         return diceController;
     }
 
-    public void setDiceController() {
-        diceController = new DiceController();
+    public void setDiceController(Game _g) {
+        diceController = new DiceController(_g);
     }
 
     public int getDiceNumber() {
@@ -125,7 +123,8 @@ public class Game {
         return board;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
+    public void setBoard() {
+        board = new Board();
+        board.loadMapFromFile("./../../../resources/map/map03.txt");
     }
 }

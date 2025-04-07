@@ -27,13 +27,14 @@ public class SeaHorse {
     private File seaHorseMoveAnimationFolder[];
     private File seaHorseIdleAnimationFolder[];
 
+    public boolean isInFinish = false;
 
     public SeaHorse(String c) {
         state = SeaHorseState.InStable;
 
         color = c;
-        seaHorseMoveAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/default/move_animation").listFiles();
-        seaHorseIdleAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/default/idle_animation").listFiles();
+        seaHorseMoveAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/dinasour/move_animation").listFiles();
+        seaHorseIdleAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/dinasour/idle_animation").listFiles();
 
         for (File file : seaHorseMoveAnimationFolder) {
             seaHorseMoveAnimation.add(ImageFromPath.GetBufferedImageFromPath(file.getPath()));
@@ -137,7 +138,7 @@ public class SeaHorse {
 
     public void setLinePixels(List<int[]> linePixels) {
         this.linePixels = linePixels;
-        pixelSpeed = (int) ((float) linePixels.size() / (GameSetting.maxFPS * 0.1f));
+        pixelSpeed = (int) ((float) linePixels.size() / (GameSetting.maxFPS * 1f));
         if (pixelSpeed == 0) pixelSpeed = 1;
     }
     

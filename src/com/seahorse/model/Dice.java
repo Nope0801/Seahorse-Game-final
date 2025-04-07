@@ -7,13 +7,16 @@ import java.util.Random;
 public class Dice {
     private Random random;
 
-    private BufferedImage diceBorder;
+    private BufferedImage diceBorder[] = new BufferedImage[4];
     private BufferedImage[] diceImages = new BufferedImage[7];
 
     public Dice() {
         random = new Random();
         
-        diceBorder = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Dices/dice_border_1.png");
+        diceBorder[0] = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Dices/red_border.png");
+        diceBorder[1] = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Dices/blue_border.png");
+        diceBorder[2] = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Dices/green_border.png");
+        diceBorder[3] = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Dices/yellow_border.png");
 
         for (int i = 0; i < 7; i++) {
             diceImages[i] = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Dices/dice_" + i + ".png");
@@ -24,8 +27,8 @@ public class Dice {
         return random;
     }
 
-    public BufferedImage getDiceBorder() {
-        return diceBorder;
+    public BufferedImage getDiceBorder(int index) {
+        return diceBorder[index];
     }
 
     public BufferedImage getDiceImages(int i) {

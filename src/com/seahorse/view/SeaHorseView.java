@@ -17,7 +17,7 @@ public class SeaHorseView implements PaintComponent{
     public boolean flip = false;
 
     public SeaHorseView() {
-        PaintComponent.AddPaint(this);
+        // PaintComponent.AddPaint(this);
 
         animTimer = new Timer((100), (ActionEvent e) -> {
             currentAnimationIndex++;

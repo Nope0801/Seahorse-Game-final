@@ -137,7 +137,6 @@ public class SeaHorseController implements UpdateComponent {
         seaHorseData.setState(SeaHorseState.EndStep);
         seaHorseData.setStepLeft(seaHorseData.getStepLeft() - 1);
         // System.out.println(seaHorseData.getStepLeft());
-        EndAction();
     }
 
     public void EndAction() {
@@ -167,5 +166,9 @@ public class SeaHorseController implements UpdateComponent {
     public void setRelative(int x, int y) {
         seaHorseData.setRelativeX(x);
         seaHorseData.setRelativeY(y);
+    }
+
+    public SeaHorseView getSeaHorseView() {
+        return seaHorseView;
     }
 }
