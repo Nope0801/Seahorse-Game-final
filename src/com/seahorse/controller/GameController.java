@@ -26,7 +26,7 @@ public class GameController implements UpdateComponent{
         
         game.setEntitiesMap();
 
-        game.setPlayersController(1, panel, this);
+        game.setPlayersController(4, panel, this);
         game.setCurrentPlayerIndex(0);
 
         game.setSkipButton(GameSetting.screenWidth / 2 - 275, GameSetting.screenHeight - 117, this);
@@ -186,9 +186,11 @@ public class GameController implements UpdateComponent{
 
     public void EndPlayerTurn() {
         game.getPlayerController().EndPlayerAction();
-        game.setCurrentPlayerIndex(game.getCurrentPlayerIndex() + 1);
-        if (game.getCurrentPlayerIndex() == game.getPlayersNumber()) {
-            game.setCurrentPlayerIndex(0);
+        if (game.getDiceNumber() != 6) {
+            game.setCurrentPlayerIndex(game.getCurrentPlayerIndex() + 1);
+            if (game.getCurrentPlayerIndex() == game.getPlayersNumber()) {
+                game.setCurrentPlayerIndex(0);
+            }
         }
         game.setControlledSeaHorse(null);
         
