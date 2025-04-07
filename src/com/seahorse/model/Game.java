@@ -9,6 +9,8 @@ import com.seahorse.controller.GameThread;
 import com.seahorse.controller.PlayerController;
 import com.seahorse.controller.SeaHorseController;
 import com.seahorse.utils.ImageFromPath;
+import com.seahorse.view.WinMenu;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,9 @@ public class Game {
     private RollButton rollButton;
     private DiceController diceController;
     private int diceNumber;
+
+    //WIN
+    private WinMenu winMenu;
 
     public Game() {
         backgroundImage = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Background/bgr_img.jpg");
@@ -95,8 +100,8 @@ public class Game {
         return diceController;
     }
 
-    public void setDiceController(Game _g) {
-        diceController = new DiceController(_g);
+    public void setDiceController(Game _g, GameThread panel) {
+        diceController = new DiceController(_g, panel);
     }
 
     public int getDiceNumber() {
@@ -126,5 +131,13 @@ public class Game {
     public void setBoard() {
         board = new Board();
         board.loadMapFromFile("./../../../resources/map/map03.txt");
+    }
+
+    public void setWinMenu(int index) {
+        winMenu = new WinMenu(index);
+    }
+
+    public WinMenu getWinMenu() {
+        return winMenu;
     }
 }

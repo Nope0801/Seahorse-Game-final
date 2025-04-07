@@ -64,6 +64,7 @@ public class SeaHorseController implements UpdateComponent {
     public void Move(int step, int relativex2, int relativey2) {
         if (step == 0) {
             seaHorseView.setCurrentAnimation(seaHorseData.getSeaHorseIdleAnimation());
+            seaHorseData.setStepLeft(0);
             return;
         }
         seaHorseData.setRelativeX(relativex2);
@@ -134,8 +135,8 @@ public class SeaHorseController implements UpdateComponent {
     }
 
     public void EndStep() {
-        seaHorseData.setState(SeaHorseState.EndStep);
         seaHorseData.setStepLeft(seaHorseData.getStepLeft() - 1);
+        seaHorseData.setState(SeaHorseState.EndStep);
         // System.out.println(seaHorseData.getStepLeft());
     }
 

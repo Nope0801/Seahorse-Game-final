@@ -70,7 +70,7 @@ public class Board implements PaintComponent{
                 String[] tiles = line.trim().split(" ");
                 for (int x = 0; x < BOARD_SIZE && x < tiles.length; x++) {
                     TileType tileType = parseTileType(tiles[x]);
-                    tilesType[y][x] = tileType;
+                    tilesType[x][y] = tileType;
                     map[y][x] = getImageFromTileType(tiles[x]);
                 }
                 y++;
