@@ -47,9 +47,11 @@ public class SeaHorseController implements UpdateComponent {
             
             if (seaHorseData.getX() == seaHorseData.getX2() && seaHorseData.getY() == seaHorseData.getY2()) {
                 // seaHorseData.setX(seaHorseData.getX2());
-                if (seaHorseData.getX2() == spawnPos[0] && seaHorseData.getY2() == spawnPos[1]) {
+                int spawnPosConvert[] = Board.changeRelativeCoordinates(spawnPos[0], spawnPos[1]);
+                if (seaHorseData.getX2() == spawnPosConvert[0] && seaHorseData.getY2() == spawnPosConvert[1]) {
                     seaHorseData.setState(SeaHorseState.InStable);
                     seaHorseData.setStepLeft(0);
+                    seaHorseView.setCurrentAnimation(seaHorseData.getSeaHorseIdleAnimation());
                 }
                 else {
                     EndStep();
