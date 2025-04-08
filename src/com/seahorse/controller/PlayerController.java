@@ -48,21 +48,11 @@ public class PlayerController {
         }
     }
 
-    public void StartTurn(int diceNumber) {
-        //Kiem tra so cua dice
-            //Neu dice = 6
-                //Hien thi lua chon spawn
-        int c[];
-        if (diceNumber == 6 && gameController.CheckTile(playerData.getStartPos()[0], playerData.getStartPos()[1])) {
-            c = Board.changeRelativeCoordinates(playerData.getStartPos()[0], playerData.getStartPos()[1]);
-            playerData.getSpawnSeaHorseButton().setBounds(c[0], c[1] - 64, 64, 128);
-            playerData.getSpawnSeaHorseButton().setVisible(true);
-            playerView.ActiveButton(4, playerData.getStartPos());
-        }
-        
+    public void StartTurn(int diceNumber) {        
         //Kiem tra co seahorse nao co the di chuyen ko
             //Neu co
                 //Hien thi nut di chuyen cua seahorse
+        int c[];
         for (int i = 0; i < 4; i++) {
             if (playerData.getSeaHorses()[i].getState() == SeaHorseState.CanMove && !playerData.getSeaHorses()[i].getSeaHorseData().isInGoal) {
                 c = Board.changeRelativeCoordinates(playerData.getSeaHorses()[i].getRelative()[0], playerData.getSeaHorses()[i].getRelative()[1]);
@@ -71,6 +61,24 @@ public class PlayerController {
                 playerView.ActiveButton(i, playerData.getSeaHorses()[i].getRelative());
             }
         }
+
+        //Kiem tra so cua dice
+            //Neu dice = 6
+                //Hien thi lua chon spawn
+        boolean haveSeaHorseToSpawn = false;
+        for (int i = 0; i < 4; i++) {
+            if (playerData.getSeaHorses()[i].getState() == SeaHorseState.InStable) {
+                haveSeaHorseToSpawn = true;
+                break;
+            }
+        }
+        if (diceNumber == 6 && gameController.CheckTile(playerData.getStartPos()[0], playerData.getStartPos()[1]) && haveSeaHorseToSpawn) {
+            c = Board.changeRelativeCoordinates(playerData.getStartPos()[0], playerData.getStartPos()[1]);
+            playerData.getSpawnSeaHorseButton().setBounds(c[0], c[1] - 64, 64, 128);
+            playerData.getSpawnSeaHorseButton().setVisible(true);
+            playerView.ActiveButton(4, playerData.getStartPos());
+        }
+
     }
 
     //Nguoi dung bam nut
