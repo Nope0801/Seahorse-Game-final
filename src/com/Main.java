@@ -1,4 +1,4 @@
-package com.seahorse.view;
+package com;
 
 import com.seahorse.view.MainMenu;
 

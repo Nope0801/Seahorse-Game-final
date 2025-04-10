@@ -87,9 +87,9 @@ public class guidePage extends JPanel {
         gifPanel1.setOpaque(false);
 
         String[] gifPaths1 = {
-                "/sprites/Tutorial/stand_dice.gif",
-                "/sprites/Tutorial/move.gif",
-                "/sprites/Tutorial/attack.gif"
+                "/resources/sprites/Tutorial/stand_dice.gif",
+                "/resources/sprites/Tutorial/move.gif",
+                "/resources/sprites/Tutorial/attack.gif"
         };
 
         String[] gifCaptions1 = {
