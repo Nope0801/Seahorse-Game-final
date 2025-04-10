@@ -26,7 +26,7 @@ public class GameController implements UpdateComponent{
         
         game.setEntitiesMap();
 
-        game.setPlayersController(4, panel, this);
+        game.setPlayersController(2, panel, this);
         game.setCurrentPlayerIndex(0);
 
         game.setSkipButton(GameSetting.screenWidth / 2 - 275, GameSetting.screenHeight - 117, this);
@@ -115,7 +115,8 @@ public class GameController implements UpdateComponent{
                 }
             }
         } else if (sh.getState() == SeaHorseState.StartStep && sh.getSeaHorseData().isInFinish) {
-            int nextTile[] = {game.getBoard().winPath[game.getDiceNumber() + (6 * game.getCurrentPlayerIndex())][0], game.getBoard().winPath[game.getDiceNumber() + (6 * game.getCurrentPlayerIndex())][1]};
+            int nextTile[] = {game.getBoard().winPath[game.getDiceNumber() - 1 + (6 * game.getCurrentPlayerIndex())][0], game.getBoard().winPath[game.getDiceNumber() - 1 + (6 * game.getCurrentPlayerIndex())][1]};
+            System.out.println(nextTile[0] + "" + nextTile[1]);
             if (CheckTile(nextTile[0], nextTile[1])) {
                 RemoveSeaHorseOnMap(sh.getRelative()[0], sh.getRelative()[1]);
                 AddSeaHorseOnMap(sh, nextTile[0], nextTile[1]);
