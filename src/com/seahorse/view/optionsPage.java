@@ -15,7 +15,6 @@ public class optionsPage extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Title label
         JLabel titleLabel = new JLabel("SETTINGS", JLabel.CENTER);
         titleLabel.setFont(new Font("Cinzel", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
@@ -24,23 +23,18 @@ public class optionsPage extends JPanel {
         gbc.gridwidth = 2;
         add(titleLabel, gbc);
 
-        // Theme
         gbc.gridy++;
         add(createComboBox("Theme:", new String[]{"Classic", "Dark", "Wood"}), gbc);
 
-        // Sound Effects
         gbc.gridy++;
         add(createComboBox("Sound Effects:", new String[]{"On", "Off"}), gbc);
 
-        // Clock
         gbc.gridy++;
         add(createComboBox("Clock:", new String[]{"1 minute", "5 minutes", "10 minutes"}), gbc);
 
-        // Save Button
         gbc.gridy++;
         add(createButton("Save", new Color(144, 238, 144)), gbc);
 
-        // Back Button
         gbc.gridy++;
         JButton backButton = createButton("Back", Color.DARK_GRAY);
         backButton.addActionListener(e -> parent.showMainMenu()); // Quay lại menu chính

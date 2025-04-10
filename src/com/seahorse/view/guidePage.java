@@ -2,17 +2,20 @@ package com.seahorse.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import java.util.HashMap;
+import com.seahorse.view.guide_assets.JScrollBar_CustomUI;
 
 public class guidePage extends JPanel {
+    private MainMenu parent;
     private CardLayout cardLayout;
     private JPanel contentPanel;
     private HashMap<String, JPanel> guideParts = new HashMap<>();
 
     public guidePage(MainMenu mainMenu) {
+        this.parent = mainMenu;
         this.setLayout(new BorderLayout());
 
-        // ====== MENU NÚT BẤM ======
         JPanel buttonPanel = new JPanel(new GridLayout(1, 6, 10, 0));
         String[] parts = {"MÔ TẢ CÁCH CHƠI", "MỤC TIÊU ĐỂ CHIẾN THẮNG"};
 
@@ -20,27 +23,51 @@ public class guidePage extends JPanel {
             JButton btn = new JButton(parts[i]);
             int index = i + 1;
             btn.addActionListener(e -> showPart("part" + index));
+            btn.setFont(new Font("SansSerif", Font.BOLD, 24));
             buttonPanel.add(btn);
         }
 
-        // ====== NỘI DUNG CHÍNH (CARD LAYOUT) ======
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
         contentPanel.setOpaque(false);
 
-        // ====== PHẦN 1: CÁCH CHƠI ======
         JPanel part1Panel = new JPanel(new GridLayout(1, 2));
         part1Panel.setOpaque(false);
 
-        // ==== CÁCH CHƠI ====
         JTextArea howToPlay = new JTextArea();
         howToPlay.setText("""
-              🎮 Cách chơi:
-        - Mỗi người chơi có 4 quân.
-        - Đổ xúc xắc, được 6 mới ra quân.
-        - Khi đi qua các ô đặc biệt, sẽ có hiệu ứng.
-        - Khi chạm quân khác, sẽ đá về chuồng.
+                   🎮 CÁCH CHƠI CHI TIẾT:
+
+                        👥 Người chơi:
+      - Gồm 2 đến 4 người chơi.
+      - Mỗi người điều khiển 4 quân cờ cùng màu: đỏ, xanh dương, xanh lá, vàng.
+
+                        🎲 Bắt đầu lượt:
+      - Người chơi lần lượt đổ xúc xắc theo thứ tự.
+      - Nếu đổ được số 6, có quyền:
+        + Ra quân nếu còn quân trong chuồng.
+        + Hoặc đi tiếp 6 bước nếu đã có quân trên bàn.
+        + Sau đó được đổ thêm 1 lần nữa.
+
+                       🏃‍♂️ Di chuyển:
+      - Quân cờ đi theo chiều kim đồng hồ.
+      - Mỗi lượt đi theo số bước tương ứng với kết quả xúc xắc.
+
+                       ⚔️ Đá quân:
+      - Nếu quân bạn đi vào ô có quân đối phương, đối phương bị đá về chuồng.
+      - Không được đá quân của chính mình.
+
+                       ✨ Ô đặc biệt:
+      - Có một số ô đặc biệt (ô tròn màu) giúp tăng tốc hoặc đổi hướng, tùy vào luật mở rộng.
+
+                       🏁 Về đích:
+      - Khi đi hết một vòng, quân sẽ rẽ vào đường màu của mình.
+      - Phải đi chính xác số bước để vào ô trung tâm (đích).
+
+                       ✅ Lưu ý:
+      - Mỗi người cần đưa cả 4 quân về đích để thắng.
+      - Nếu chưa đủ điều kiện di chuyển (ví dụ không có quân ra bàn mà không đổ được 6), thì mất lượt.
         """);
         howToPlay.setLineWrap(true);
         howToPlay.setWrapStyleWord(true);
@@ -56,23 +83,89 @@ public class guidePage extends JPanel {
         scrollPanePlay.getVerticalScrollBar().setUnitIncrement(16);
         part1Panel.add(scrollPanePlay);
 
-        // ==== ẢNH GIF ====
-        JLabel gifLabel1 = new JLabel();
-        gifLabel1.setHorizontalAlignment(JLabel.CENTER);
-        gifLabel1.setVerticalAlignment(JLabel.CENTER);
-        gifLabel1.setOpaque(false);
-        try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/resources/guide_assets/part1.gif"));
-            gifLabel1.setIcon(icon);
-        } catch (Exception e) {
-            gifLabel1.setText("Không tìm thấy ảnh");
+        JPanel gifPanel1 = new JPanel(new BorderLayout());
+        gifPanel1.setOpaque(false);
+
+        String[] gifPaths1 = {
+                "/sprites/Tutorial/stand_dice.gif",
+                "/sprites/Tutorial/move.gif",
+                "/sprites/Tutorial/attack.gif"
+        };
+
+        String[] gifCaptions1 = {
+                "Hình 1: quân cờ đứng yên",
+                "Hình 2: quân cờ chạy",
+                "Hình 3: quân cờ đá đối thủ"
+        };
+
+        ImageIcon[] gifIcons1 = new ImageIcon[gifPaths1.length];
+        for (int i = 0; i < gifPaths1.length; i++) {
+            URL url = getClass().getResource(gifPaths1[i]);
+            if (url != null) {
+                ImageIcon icon = new ImageIcon(url);
+                Image scaledImage = icon.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT);
+                gifIcons1[i] = new ImageIcon(scaledImage);
+            } else {
+                gifIcons1[i] = new ImageIcon();
+                System.err.println("Không tìm thấy ảnh: " + gifPaths1[i]);
+            }
         }
-        part1Panel.add(gifLabel1);
 
-        contentPanel.add(part1Panel, "part1");
-        guideParts.put("part1", part1Panel);
+        JLabel gifLabel1 = new JLabel(gifIcons1[0], JLabel.CENTER);
+        gifLabel1.setOpaque(false);
+        gifPanel1.add(gifLabel1, BorderLayout.CENTER);
 
-        // ====== PHẦN 2: MỤC TIÊU CHIẾN THẮNG ======
+        JButton prevBtn1 = new JButton("⏪");
+        JButton nextBtn1 = new JButton("⏩");
+
+        JPanel controlPanel1 = new JPanel();
+        controlPanel1.setOpaque(false);
+        controlPanel1.setLayout(new BoxLayout(controlPanel1, BoxLayout.X_AXIS));
+
+        JLabel gifCaption1 = new JLabel("Hình 1: quân cờ đứng yên");
+        gifCaption1.setFont(new Font("SansSerif", Font.ITALIC, 18));
+
+        prevBtn1.setAlignmentY(Component.CENTER_ALIGNMENT);
+        gifCaption1.setAlignmentY(Component.CENTER_ALIGNMENT);
+        nextBtn1.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        controlPanel1.add(Box.createHorizontalStrut(190));
+        controlPanel1.add(prevBtn1);
+        controlPanel1.add(Box.createHorizontalStrut(10));
+        controlPanel1.add(gifCaption1);
+        controlPanel1.add(Box.createHorizontalStrut(10));
+        controlPanel1.add(nextBtn1);
+        controlPanel1.add(Box.createHorizontalStrut(10));
+
+        gifPanel1.add(controlPanel1, BorderLayout.SOUTH);
+
+        // nut back
+        JButton backButton = new JButton("⬅ Quay lại menu");
+        backButton.setFont(new Font("SansSerif", Font.BOLD, 18));
+        backButton.setFocusPainted(false);
+        backButton.addActionListener(e -> mainMenu.showMainMenu());
+
+        JPanel backPanel = new JPanel();
+        backPanel.setOpaque(false);
+        backPanel.add(backButton);
+
+        final int[] currentIndex1 = {0};
+        prevBtn1.addActionListener(e -> {
+            currentIndex1[0] = (currentIndex1[0] - 1 + gifIcons1.length) % gifIcons1.length;
+            gifLabel1.setIcon(gifIcons1[currentIndex1[0]]);
+            gifCaption1.setText(gifCaptions1[currentIndex1[0]]);
+        });
+
+        nextBtn1.addActionListener(e -> {
+            currentIndex1[0] = (currentIndex1[0] + 1) % gifIcons1.length;
+            gifLabel1.setIcon(gifIcons1[currentIndex1[0]]);
+            gifCaption1.setText(gifCaptions1[currentIndex1[0]]);
+        });
+
+
+        part1Panel.add(gifPanel1);
+
+
         JPanel part2Panel = new JPanel(new GridLayout(1, 2));
         part2Panel.setOpaque(false);
 
@@ -97,26 +190,46 @@ public class guidePage extends JPanel {
         scrollPaneWin.getVerticalScrollBar().setUnitIncrement(16);
         part2Panel.add(scrollPaneWin);
 
-        // ==== ẢNH GIF ====
-        JLabel gifLabel2 = new JLabel();
-        gifLabel2.setHorizontalAlignment(JLabel.CENTER);
-        gifLabel2.setVerticalAlignment(JLabel.CENTER);
-        gifLabel2.setOpaque(false);
-        try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("src/resources/sprites/Tutorial/stand_dice.gif"));
-            gifLabel2.setIcon(icon);
-        } catch (Exception e) {
-            gifLabel2.setText("Không tìm thấy ảnh");
+        JPanel gifPanel2 = new JPanel(new BorderLayout());
+        gifPanel2.setOpaque(false);
+
+        String[] gifPaths2 = {
+                "/sprites/Tutorial/Winner.gif",
+        };
+
+        ImageIcon[] gifIcons2 = new ImageIcon[gifPaths2.length];
+        for (int i = 0; i < gifPaths2.length; i++) {
+            URL url = getClass().getResource(gifPaths2[i]);
+            if (url != null) {
+                ImageIcon icon = new ImageIcon(url);
+                Image scaledImage = icon.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT);
+                gifIcons2[i] = new ImageIcon(scaledImage);
+            } else {
+                gifIcons2[i] = new ImageIcon();
+                System.err.println("Không tìm thấy ảnh: " + gifPaths2[i]);
+            }
         }
-        part2Panel.add(gifLabel2);
 
-        contentPanel.add(part2Panel, "part2");
-        guideParts.put("part2", part2Panel);
+        JLabel gifLabel2 = new JLabel(gifIcons2[0], JLabel.CENTER);
+        gifLabel2.setOpaque(false);
+        gifPanel2.add(gifLabel2, BorderLayout.CENTER);
 
-        // ==== ADD TO MAIN PANEL ====
+        JPanel controlPanel2 = new JPanel();
+        controlPanel2.setOpaque(false);
+        gifPanel2.add(controlPanel2, BorderLayout.SOUTH);
+
+        part2Panel.add(gifPanel2);
+
         this.add(buttonPanel, BorderLayout.NORTH);
         this.add(contentPanel, BorderLayout.CENTER);
         this.setOpaque(false);
+
+        contentPanel.add(part1Panel, "part1");
+        contentPanel.add(part2Panel, "part2");
+
+        cardLayout.show(contentPanel, "part1");
+
+        this.add(backPanel, BorderLayout.SOUTH);
     }
 
     private void showPart(String partName) {
