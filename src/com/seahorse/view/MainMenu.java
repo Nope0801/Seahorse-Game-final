@@ -1,11 +1,13 @@
 package com.seahorse.view;
 
+import com.seahorse.utils.Sound_main;
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.*;
 
 public class MainMenu extends JFrame {
+    private Sound_main bgrMusic;
     private JPanel menuPanel;
     private guidePage guidePanel;
     private optionsPage optionsPanel;
@@ -19,6 +21,10 @@ public class MainMenu extends JFrame {
         setSize(1366, 774);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
+        bgrMusic = new Sound_main("/resources/sprites/Soundtrack/Main_theme_sound.wav");
+        bgrMusic.playLoop();
+        optionsPage options = new optionsPage(this, bgrMusic);
 
         bgrPanel = new BackgroundPanel("src/resources/sprites/Background/bgr_img.jpg");
         bgrPanel.setLayout(new BorderLayout());
@@ -42,6 +48,7 @@ public class MainMenu extends JFrame {
 
         JButton startButton = createMenuButton("Play");
         startButton.addActionListener(e -> {
+            bgrMusic.stop();
             this.dispose();
             new GameFrame();
         });
@@ -64,7 +71,7 @@ public class MainMenu extends JFrame {
 
         guidePanel = new guidePage(this);
 
-        optionsPanel = new optionsPage(this);
+        optionsPanel = new optionsPage(this, bgrMusic);
 
         mainContentPanel.add(menuPanel, "menu");
         mainContentPanel.add(guidePanel, "guide");

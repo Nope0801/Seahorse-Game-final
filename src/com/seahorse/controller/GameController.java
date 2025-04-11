@@ -26,7 +26,7 @@ public class GameController implements UpdateComponent{
         
         game.setEntitiesMap();
 
-        game.setPlayersController(2, panel, this);
+        game.setPlayersController(4, panel, this);
         game.setCurrentPlayerIndex(0);
 
         game.setSkipButton(GameSetting.screenWidth / 2 - 275, GameSetting.screenHeight - 117, this);

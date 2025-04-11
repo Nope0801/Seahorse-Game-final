@@ -1,10 +1,9 @@
 package com.seahorse.view;
 
-import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.util.HashMap;
-import com.seahorse.view.guide_assets.JScrollBar_CustomUI;
+import javax.swing.*;
 
 public class guidePage extends JPanel {
     private MainMenu parent;
@@ -87,9 +86,9 @@ public class guidePage extends JPanel {
         gifPanel1.setOpaque(false);
 
         String[] gifPaths1 = {
-                "/sprites/Tutorial/stand_dice.gif",
-                "/sprites/Tutorial/move.gif",
-                "/sprites/Tutorial/attack.gif"
+                "/resources/sprites/Tutorial/stand_dice.gif",
+                "/resources/sprites/Tutorial/move.gif",
+                "/resources/sprites/Tutorial/attack.gif"
         };
 
         String[] gifCaptions1 = {
@@ -194,7 +193,7 @@ public class guidePage extends JPanel {
         gifPanel2.setOpaque(false);
 
         String[] gifPaths2 = {
-                "/sprites/Tutorial/Winner.gif",
+                "/resources/sprites/Tutorial/Winner.gif",
         };
 
         ImageIcon[] gifIcons2 = new ImageIcon[gifPaths2.length];
