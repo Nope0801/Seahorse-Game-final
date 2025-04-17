@@ -2,19 +2,17 @@ package com.seahorse.view;
 
 import java.awt.*;
 import java.net.URL;
-import java.util.HashMap;
 import javax.swing.*;
 
 public class guidePage extends JPanel {
     private MainMenu parent;
     private CardLayout cardLayout;
     private JPanel contentPanel;
-    private HashMap<String, JPanel> guideParts = new HashMap<>();
 
     public guidePage(MainMenu mainMenu) {
         this.parent = mainMenu;
-        this.setLayout(new BorderLayout());
 
+        // ========== BUTTON BAR ========== //
         JPanel buttonPanel = new JPanel(new GridLayout(1, 6, 10, 0));
         String[] parts = {"MÔ TẢ CÁCH CHƠI", "MỤC TIÊU ĐỂ CHIẾN THẮNG"};
 
@@ -26,48 +24,60 @@ public class guidePage extends JPanel {
             buttonPanel.add(btn);
         }
 
+        JPanel buttonContainer = new JPanel(new BorderLayout());
+        buttonContainer.setOpaque(false);
+        buttonContainer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+        buttonContainer.add(buttonPanel, BorderLayout.CENTER);
+
+        // ========== CONTENT PANEL ========== //
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
         contentPanel.setOpaque(false);
 
+        JPanel contentWrapper = new JPanel(new BorderLayout());
+        contentWrapper.setOpaque(false);
+        contentWrapper.add(contentPanel, BorderLayout.CENTER);
+        contentWrapper.setMaximumSize(new Dimension(1366, 550));
+
+        // ========== PART 1 ========== //
         JPanel part1Panel = new JPanel(new GridLayout(1, 2));
         part1Panel.setOpaque(false);
 
         JTextArea howToPlay = new JTextArea();
         howToPlay.setText("""
-                   🎮 CÁCH CHƠI CHI TIẾT:
+🎮 CÁCH CHƠI CHI TIẾT:
 
-                        👥 Người chơi:
-      - Gồm 2 đến 4 người chơi.
-      - Mỗi người điều khiển 4 quân cờ cùng màu: đỏ, xanh dương, xanh lá, vàng.
+          👥 Người chơi:
+- Gồm 2 đến 4 người chơi.
+- Mỗi người điều khiển 4 quân cờ cùng màu: đỏ, xanh dương, xanh lá, vàng.
 
-                        🎲 Bắt đầu lượt:
-      - Người chơi lần lượt đổ xúc xắc theo thứ tự.
-      - Nếu đổ được số 6, có quyền:
-        + Ra quân nếu còn quân trong chuồng.
-        + Hoặc đi tiếp 6 bước nếu đã có quân trên bàn.
-        + Sau đó được đổ thêm 1 lần nữa.
+          🎲 Bắt đầu lượt:
+- Người chơi lần lượt đổ xúc xắc theo thứ tự.
+- Nếu đổ được số 6, có quyền:
++ Ra quân nếu còn quân trong chuồng.
++ Hoặc đi tiếp 6 bước nếu đã có quân trên bàn.
++ Sau đó được đổ thêm 1 lần nữa.
 
-                       🏃‍♂️ Di chuyển:
-      - Quân cờ đi theo chiều kim đồng hồ.
-      - Mỗi lượt đi theo số bước tương ứng với kết quả xúc xắc.
+          🏃‍♂️ Di chuyển:
+- Quân cờ đi theo chiều kim đồng hồ.
+- Mỗi lượt đi theo số bước tương ứng với kết quả xúc xắc.
 
-                       ⚔️ Đá quân:
-      - Nếu quân bạn đi vào ô có quân đối phương, đối phương bị đá về chuồng.
-      - Không được đá quân của chính mình.
+          ⚔️ Đá quân:
+- Nếu quân bạn đi vào ô có quân đối phương, đối phương bị đá về chuồng.
+- Không được đá quân của chính mình.
 
-                       ✨ Ô đặc biệt:
-      - Có một số ô đặc biệt (ô tròn màu) giúp tăng tốc hoặc đổi hướng, tùy vào luật mở rộng.
+          ✨ Ô đặc biệt:
+- Có một số ô đặc biệt (ô tròn màu) giúp tăng tốc hoặc đổi hướng, tùy vào luật mở rộng.
 
-                       🏁 Về đích:
-      - Khi đi hết một vòng, quân sẽ rẽ vào đường màu của mình.
-      - Phải đi chính xác số bước để vào ô trung tâm (đích).
+         🏁 Về đích:
+- Khi đi hết một vòng, quân sẽ rẽ vào đường màu của mình.
+- Phải đi chính xác số bước để vào ô trung tâm (đích).
 
-                       ✅ Lưu ý:
-      - Mỗi người cần đưa cả 4 quân về đích để thắng.
-      - Nếu chưa đủ điều kiện di chuyển (ví dụ không có quân ra bàn mà không đổ được 6), thì mất lượt.
-        """);
+         ✅ Lưu ý:
+- Mỗi người cần đưa cả 4 quân về đích để thắng.
+- Nếu chưa đủ điều kiện di chuyển (ví dụ không có quân ra bàn mà không đổ được 6), thì mất lượt.
+""");
         howToPlay.setLineWrap(true);
         howToPlay.setWrapStyleWord(true);
         howToPlay.setFont(new Font("Serif", Font.PLAIN, 32));
@@ -86,15 +96,15 @@ public class guidePage extends JPanel {
         gifPanel1.setOpaque(false);
 
         String[] gifPaths1 = {
-                "/resources/sprites/Tutorial/stand_dice.gif",
-                "/resources/sprites/Tutorial/move.gif",
-                "/resources/sprites/Tutorial/attack.gif"
+            "/resources/sprites/Tutorial/stand_dice.gif",
+            "/resources/sprites/Tutorial/move.gif",
+            "/resources/sprites/Tutorial/attack.gif"
         };
 
         String[] gifCaptions1 = {
-                "Hình 1: quân cờ đứng yên",
-                "Hình 2: quân cờ chạy",
-                "Hình 3: quân cờ đá đối thủ"
+            "Hình 1: quân cờ đứng yên",
+            "Hình 2: quân cờ chạy",
+            "Hình 3: quân cờ đá đối thủ"
         };
 
         ImageIcon[] gifIcons1 = new ImageIcon[gifPaths1.length];
@@ -138,16 +148,6 @@ public class guidePage extends JPanel {
 
         gifPanel1.add(controlPanel1, BorderLayout.SOUTH);
 
-        // nut back
-        JButton backButton = new JButton("⬅ Quay lại menu");
-        backButton.setFont(new Font("SansSerif", Font.BOLD, 18));
-        backButton.setFocusPainted(false);
-        backButton.addActionListener(e -> mainMenu.showMainMenu());
-
-        JPanel backPanel = new JPanel();
-        backPanel.setOpaque(false);
-        backPanel.add(backButton);
-
         final int[] currentIndex1 = {0};
         prevBtn1.addActionListener(e -> {
             currentIndex1[0] = (currentIndex1[0] - 1 + gifIcons1.length) % gifIcons1.length;
@@ -161,20 +161,18 @@ public class guidePage extends JPanel {
             gifCaption1.setText(gifCaptions1[currentIndex1[0]]);
         });
 
-
         part1Panel.add(gifPanel1);
-
 
         JPanel part2Panel = new JPanel(new GridLayout(1, 2));
         part2Panel.setOpaque(false);
 
         JTextArea howToWin = new JTextArea();
         howToWin.setText("""
-                🏆 Mục tiêu để chiến thắng:
-        - Đưa toàn bộ 4 quân về đích trước các đối thủ.
-        - Tránh bị đá về chuồng.
-        - Tận dụng các ô đặc biệt để tăng tốc hoặc cản đối thủ.
-        """);
+🏆 Mục tiêu để chiến thắng:
+- Đưa toàn bộ 4 quân về đích trước các đối thủ.
+- Tránh bị đá về chuồng.
+- Tận dụng các ô đặc biệt để tăng tốc hoặc cản đối thủ.
+""");
         howToWin.setLineWrap(true);
         howToWin.setWrapStyleWord(true);
         howToWin.setFont(new Font("Serif", Font.PLAIN, 32));
@@ -193,7 +191,7 @@ public class guidePage extends JPanel {
         gifPanel2.setOpaque(false);
 
         String[] gifPaths2 = {
-                "/resources/sprites/Tutorial/Winner.gif",
+            "/resources/sprites/Tutorial/Winner.gif"
         };
 
         ImageIcon[] gifIcons2 = new ImageIcon[gifPaths2.length];
@@ -219,16 +217,39 @@ public class guidePage extends JPanel {
 
         part2Panel.add(gifPanel2);
 
-        this.add(buttonPanel, BorderLayout.NORTH);
-        this.add(contentPanel, BorderLayout.CENTER);
-        this.setOpaque(false);
-
         contentPanel.add(part1Panel, "part1");
         contentPanel.add(part2Panel, "part2");
 
         cardLayout.show(contentPanel, "part1");
 
-        this.add(backPanel, BorderLayout.SOUTH);
+        // ========== NÚT BACK ==========
+        JButton backButton = new JButton("⬅ Quay lại menu");
+        backButton.setFont(new Font("SansSerif", Font.BOLD, 18));
+        backButton.setFocusPainted(false);
+        backButton.addActionListener(e -> mainMenu.showMainMenu());
+
+        JPanel backPanel = new JPanel();
+        backPanel.setOpaque(false);
+        backPanel.add(backButton);
+
+        // ========== BỌC TẤT CẢ ==========
+        JPanel mainWrapper = new JPanel();
+        mainWrapper.setOpaque(false);
+
+        mainWrapper.setLayout(new BoxLayout(mainWrapper, BoxLayout.Y_AXIS));
+
+        // đẩy toàn bộ wrapper lên
+        mainWrapper.add(Box.createVerticalGlue()); 
+
+        mainWrapper.add(buttonContainer);
+        mainWrapper.add(Box.createVerticalStrut(0));
+        mainWrapper.add(contentWrapper);
+        mainWrapper.add(backPanel);
+        mainWrapper.add(Box.createVerticalStrut(30));
+
+        this.setLayout(new BorderLayout());
+        this.add(mainWrapper, BorderLayout.CENTER);
+        this.setOpaque(false);
     }
 
     private void showPart(String partName) {

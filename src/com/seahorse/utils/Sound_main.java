@@ -14,7 +14,6 @@ public class Sound_main {
                 System.err.println("Không tìm thấy file âm thanh: " + soundFilePath);
                 return;
             }
-
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundURL);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
