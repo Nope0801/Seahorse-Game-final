@@ -7,6 +7,8 @@ import com.seahorse.utils.PaintComponent;
 import com.seahorse.utils.UpdateComponent;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class GameThread extends JPanel implements Runnable {
@@ -59,6 +61,14 @@ public class GameThread extends JPanel implements Runnable {
     public void run() {
         long timePerFrame = 1000000000 / GameSetting.maxFPS;
         GameController gameController = new GameController(this);
+        JButton saveButton = new JButton("save");
+        saveButton.setBounds((GameSetting.screenWidth) - 64 - 36-100, GameSetting.screenHeight / 2, 64, 64);
+        saveButton.addActionListener(e -> gameController.saveGame() );
+        this.add(saveButton);
+        JButton loadButton = new JButton("load");
+        loadButton.setBounds((GameSetting.screenWidth) - 64 - 36-200, GameSetting.screenHeight / 2, 64, 64);
+        loadButton.addActionListener(e -> gameController.loadGame(gameController) );
+        this.add(loadButton);
         while (gameThread != null) {
             long startFrameTime = System.nanoTime();
             repaint();
