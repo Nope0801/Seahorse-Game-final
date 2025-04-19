@@ -1,5 +1,6 @@
 package com.seahorse.view;
 
+import com.seahorse.model.GameSetting;
 import com.seahorse.utils.Sound_main;
 import java.awt.*;
 import java.net.URL;
@@ -18,10 +19,9 @@ public class optionsPage extends JPanel {
     };
 
     private final String[] resolutions = {
-            "800 x 600",
             "1280 x 720",
             "1366 x 768",
-            "1920 x 1080"
+            "1600 x 900",
     };
 
     public optionsPage(MainMenu parent, Sound_main bgrMusic) {
@@ -170,6 +170,8 @@ public class optionsPage extends JPanel {
             if (parts.length == 2) {
                 int width = Integer.parseInt(parts[0].trim());
                 int height = Integer.parseInt(parts[1].trim());
+                GameSetting.screenWidth = width;
+                GameSetting.screenHeight = height;
                 parent.setSize(width, height);
                 parent.setLocationRelativeTo(null);
             }

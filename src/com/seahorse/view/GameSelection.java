@@ -61,6 +61,7 @@ public class GameSelection extends JPanel {
 
     private void startGameAction() {
         this.bgrMusic.stop();
+        this.parent.dispose();
         new GameFrame();
     }
 }

@@ -45,7 +45,7 @@ public class guidePage extends JPanel {
 
         JPanel buttonContainer = new JPanel(new BorderLayout());
         buttonContainer.setOpaque(false);
-        buttonContainer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+        buttonContainer.setBorder(BorderFactory.createEmptyBorder(170, 0, 0, 0));
         buttonContainer.add(buttonPanel, BorderLayout.CENTER);
 
         // ========== CONTENT PANEL ==========
