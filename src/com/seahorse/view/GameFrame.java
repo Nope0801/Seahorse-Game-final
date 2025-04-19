@@ -2,16 +2,20 @@ package com.seahorse.view;
 
 import com.seahorse.controller.GameThread;
 import com.seahorse.model.GameSetting;
-import javax.swing.JFrame;
+import java.util.List;
+import javax.swing.*;
 
-public class GameFrame {
-    private JFrame window;
-    // private MenuView menuView;
-    // private GameView gameView;
-    // private Game game;
-    // private GameController gameController;
+public class GameFrame extends JFrame {
+
+    private int numberOfPlayers;
+    private List<String> playerColors;
+    private final JFrame window;
 
     public GameFrame() {
+        // this.playerColors = new ArrayList<>(null);
+        // this.numberOfPlayers = this.playerColors.size();
+
+
         window = new JFrame("SeaHorse Game");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
@@ -24,6 +28,5 @@ public class GameFrame {
         window.setVisible(true);
         // menuView = new MenuView();
         // MenuController menuController = new MenuContainer(menuView, this::startGame);
-
     }
 }
