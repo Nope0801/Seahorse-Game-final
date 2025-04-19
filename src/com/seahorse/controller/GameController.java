@@ -16,23 +16,22 @@ import com.seahorse.utils.SeaHorseState;
 import com.seahorse.utils.UpdateComponent;
 import com.seahorse.view.GameView;
 
-public class GameController implements UpdateComponent {
+public class GameController implements UpdateComponent{
     private GameThread panel;
     private Game game;
     private GameView gameView;
 
     private boolean canShowActive = false;
-
     public GameController(GameThread _panel) {
         panel = _panel;
         UpdateComponent.AddUpdate(this);
-
+        
         game = new Game();
 
         gameView = new GameView(game.getBackgroundImage(), panel, game);
 
         game.setBoard();
-
+        
         game.setEntitiesMap();
 
         game.setPlayersController(4, panel, this);
@@ -70,27 +69,26 @@ public class GameController implements UpdateComponent {
     }
 
     public void SeaHorseMonitor() {
-        if (game.getControlledSeaHorse() == null)
-            return;
+        if (game.getControlledSeaHorse() == null) return;
 
         SeaHorseController sh = game.getControlledSeaHorse();
 
-        // Kiem tra trang thai cua sh co phai move ko
-        // Neu co
-        // return
+        //Kiem tra trang thai cua sh co phai move ko
+            //Neu co   
+                //return
         if (sh.getState() == SeaHorseState.IsStep) {
             return;
         }
-
-        // Kiem tra trang thai co phai start ko
-        // Neu co
-        // Kiem tra o tiep theo co ngua khac ngua dong minh ko
-        // Neu co
-        // Xem co phai buoc cuoi ko
-        // Neu co
-        // Da
-        // Neu ko
-        // Ket thuc di chuyen
+                
+        //Kiem tra trang thai co phai start ko
+            //Neu co
+                //Kiem tra o tiep theo co ngua khac ngua dong minh ko
+                    //Neu co
+                        //Xem co phai buoc cuoi ko
+                            //Neu co
+                                //Da
+                            //Neu ko
+                                //Ket thuc di chuyen
         if (sh.getState() == SeaHorseState.StartStep && !sh.getSeaHorseData().isInFinish) {
             int nextTile[] = Board.getNextTile(sh.getRelative()[0], sh.getRelative()[1]);
             if (CheckTile(nextTile[0], nextTile[1])) {
@@ -98,13 +96,15 @@ public class GameController implements UpdateComponent {
                 AddSeaHorseOnMap(sh, nextTile[0], nextTile[1]);
                 sh.Move(sh.getSeaHorseData().getStepLeft(), nextTile[0], nextTile[1]);
                 sh.setState(SeaHorseState.IsStep);
-            } else {
+            }
+            else {
                 if (game.getEntitiesMap().GetTileSeaHorse(nextTile[0], nextTile[1]).player == sh.player) {
                     sh.Move(0, sh.getRelative()[0], sh.getRelative()[1]);
                     sh.setState(SeaHorseState.EndAction);
-                } else {
+                }
+                else {
                     if (sh.getSeaHorseData().getStepLeft() == 1) {
-                        // da ngua
+                        //da ngua
                         SeaHorseController shk = game.getEntitiesMap().GetTileSeaHorse(nextTile[0], nextTile[1]);
                         shk.BackToStable();
                         shk.setState(SeaHorseState.IsStep);
@@ -115,33 +115,35 @@ public class GameController implements UpdateComponent {
                         AddSeaHorseOnMap(sh, nextTile[0], nextTile[1]);
                         sh.Move(sh.getSeaHorseData().getStepLeft(), nextTile[0], nextTile[1]);
                         sh.setState(SeaHorseState.IsStep);
-                    } else {
+                    }
+                    else {
                         sh.Move(0, sh.getRelative()[0], sh.getRelative()[1]);
                         sh.setState(SeaHorseState.EndAction);
                     }
                 }
             }
         } else if (sh.getState() == SeaHorseState.StartStep && sh.getSeaHorseData().isInFinish) {
-            int nextTile[] = { game.getBoard().winPath[game.getDiceNumber() + (6 * game.getCurrentPlayerIndex())][0],
-                    game.getBoard().winPath[game.getDiceNumber() + (6 * game.getCurrentPlayerIndex())][1] };
+            int nextTile[] = {game.getBoard().winPath[game.getDiceNumber() - 1 + (6 * game.getCurrentPlayerIndex())][0], game.getBoard().winPath[game.getDiceNumber() - 1 + (6 * game.getCurrentPlayerIndex())][1]};
+            System.out.println(nextTile[0] + "" + nextTile[1]);
             if (CheckTile(nextTile[0], nextTile[1])) {
                 RemoveSeaHorseOnMap(sh.getRelative()[0], sh.getRelative()[1]);
                 AddSeaHorseOnMap(sh, nextTile[0], nextTile[1]);
                 sh.Move(1, nextTile[0], nextTile[1]);
                 sh.setState(SeaHorseState.IsStep);
                 sh.getSeaHorseData().isInGoal = true;
-            } else {
+            }
+            else {
                 sh.Move(0, sh.getRelative()[0], sh.getRelative()[1]);
                 sh.setState(SeaHorseState.EndAction);
             }
         }
 
-        // Kiem tra trang thai co phai end ko
-        // neu co
-        // kiem tra o nay da la o dich chua
-        // neu co
-        // dung di chuyen chuyen sang trang thai di len chuong dich
-        // end action
+        //Kiem tra trang thai co phai end ko
+            //neu co
+                //kiem tra o nay da la o dich chua
+                    //neu co
+                        //dung di chuyen chuyen sang trang thai di len chuong dich
+                //end action
         if (sh.getState() == SeaHorseState.EndStep) {
             if (sh.getRelative()[0] == 7 || sh.getRelative()[1] == 7) {
                 System.out.println(game.getBoard().getTileEnum(sh.getRelative()[0], sh.getRelative()[1]));
@@ -154,7 +156,7 @@ public class GameController implements UpdateComponent {
                         currentType = TileType.GC;
                         break;
                     case 3:
-                        currentType = TileType.YC;
+                        currentType = TileType.YC;  
                         break;
                 }
                 if (currentType == game.getBoard().getTileEnum(sh.getRelative()[0], sh.getRelative()[1])) {
@@ -166,10 +168,10 @@ public class GameController implements UpdateComponent {
             }
             sh.EndAction();
         }
-
-        // Kiem tra trang thai co phai endaction ko
-        // Neu co
-        // xoa csh va ket thuc luot
+                
+        //Kiem tra trang thai co phai endaction ko
+            //Neu co
+                //xoa csh va ket thuc luot
         if (sh.getState() == SeaHorseState.EndAction) {
             sh.setState(SeaHorseState.CanMove);
             EndPlayerTurn();
@@ -200,7 +202,7 @@ public class GameController implements UpdateComponent {
             }
         }
         game.setControlledSeaHorse(null);
-
+        
         game.getDiceController().SetDiceDefault();
         game.setDiceNumber(0);
 
@@ -214,25 +216,22 @@ public class GameController implements UpdateComponent {
     }
 
     private boolean isEnd = false;
-
     public void CheckPlayersProgress() {
         int index = -1;
         for (int i = 0; i < game.getPlayersNumber(); i++) {
-            if (game.getPlayersController().get(i).getSeaHorsesInGoalNumber() == 4) {
+            if (game.getPlayersController().get(i).getSeaHorsesInGoalNumber() == 4){
                 index = i;
                 break;
             }
         }
 
-        if (index == -1)
-            return;
-
+        if (index == -1) return;
+        
         isEnd = true;
         game.getRollButton().UnactiveButton();
         game.getSkipButton().UnactiveButton();
         game.getWinMenu().setIndex(index);
     }
-
     public void saveGame() {
         List<PlayerSaveData> players = new ArrayList<>();
 
@@ -247,7 +246,7 @@ public class GameController implements UpdateComponent {
         GameSaveData saveData = new GameSaveData(players, currentPlayerIndex, diceNumber, playersNumber);
 
         GameSaveManager.saveGame(saveData);
-    }
+    }   
     public void loadGame(GameController gameController) {
         GameSaveData saveData = GameSaveManager.loadGame();
         if (saveData == null) {
@@ -268,7 +267,7 @@ public class GameController implements UpdateComponent {
     
                 // Dùng GameUpdate để cập nhật toàn bộ vị trí, state, view, v.v...
                 GameUpdate.spawnHorseForPlayer(
-                    gameController,i, j, horseData.getRelativeX(),horseData.getRelativeY(),   horseData.getState()        
+                    gameController,i, j, horseData.getRelativeX(),horseData.getRelativeY(),   horseData.getState() , horseData.getIsInFinish(), horseData.getIsInGoal()       
                 );
             }
         }
@@ -281,13 +280,4 @@ public class GameController implements UpdateComponent {
     
         System.out.println(" Load game thành công!");
     }
-   
-    
-    
-    
-    
-    
-
-    
-
 }

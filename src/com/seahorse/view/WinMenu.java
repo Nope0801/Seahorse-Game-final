@@ -41,8 +41,21 @@ public class WinMenu implements PaintComponent {
         g.drawImage(winPlayerBanner, 0, -100, GameSetting.screenWidth, GameSetting.screenHeight, null);
     }
     
-    public void setIndex(int i) {
-        winIndex = i;
+    public void setIndex(int index) {
+        switch (index) {
+            case 0:
+                winPlayerBanner = ImageFromPath.GetBufferedImageFromPath("src/resources/sprites/WinMenu/red_win_banner-removebg.png");
+                break;
+            case 1:
+                winPlayerBanner = ImageFromPath.GetBufferedImageFromPath("src/resources/sprites/WinMenu/blue_win_banner-removebg.png");
+                break;
+            case 2:
+                winPlayerBanner = ImageFromPath.GetBufferedImageFromPath("src/resources/sprites/WinMenu/green_win_banner-removebg.png");
+                break;
+            case 3:
+                winPlayerBanner = ImageFromPath.GetBufferedImageFromPath("src/resources/sprites/WinMenu/yellow_win_banner-removebg.png");
+                break;
+        }
         isEnd = true;
     }
 }

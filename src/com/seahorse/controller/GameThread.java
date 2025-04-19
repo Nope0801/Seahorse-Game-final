@@ -41,7 +41,7 @@ public class GameThread extends JPanel implements Runnable {
     @Override
     public void paintComponent(Graphics grp) {
         super.paintComponent(grp);
-        Graphics2D grp2D = (Graphics2D) (grp);
+        Graphics2D grp2D = (Graphics2D) (grp);  
         // ImagePanel("./assets/bgr_img.jpg");
         // grp2D.drawImage(image, 0, 0, screenWidth, screenHeight,this);
         // grp.setColor(Color.BLACK);
