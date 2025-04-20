@@ -82,4 +82,7 @@ public class Player{
     public String getColor() {
         return color;
     }
+    public int getPlayerIndex() {
+        return playerIndex;
+    }
 }

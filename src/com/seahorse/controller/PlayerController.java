@@ -1,7 +1,11 @@
 package com.seahorse.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.seahorse.model.Board;
 import com.seahorse.model.Player;
+import com.seahorse.model.SeaHorse;
 import com.seahorse.utils.SeaHorseState;
 import com.seahorse.view.PlayerView;
 
@@ -138,5 +142,15 @@ public class PlayerController {
             c += (sh.getSeaHorseData().isInGoal) ? 1 : 0;
         }
         return c;
+    }
+    public SeaHorseController[] getSeaHorses() {
+        return playerData.getSeaHorses();
+    }
+    public List<SeaHorse> getSeaHorseDataList() {
+        List<SeaHorse> result = new ArrayList<>();
+        for (SeaHorseController sc : playerData.getSeaHorses()) {
+            result.add(sc.getSeaHorseData());
+        }
+        return result;
     }
 }
