@@ -8,7 +8,9 @@ import com.seahorse.utils.GameSaveManager;
 import com.seahorse.utils.PaintComponent;
 import com.seahorse.utils.UpdateComponent;
 import com.seahorse.view.GameFrame;
+import com.seahorse.view.image_button_menu;
 import com.seahorse.view.pauseMenuPanel;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -87,6 +89,21 @@ public class GameThread extends JPanel implements Runnable {
         });
         this.add(loadButton);
 
+        //nut cai dat
+        image_button_menu optionsButtonInGame = new image_button_menu(
+            "/resources/sprites/menu_button/options_button_in_game.png",
+            "/resources/sprites/menu_button/options_button_in_game_hover.png",
+            45, 45
+        );
+
+        int buttonSize = 45;
+        int buttonX = 5; // Cách trái 36 pixel
+        int buttonY = GameSetting.screenHeight / 2 - 50; // Căn giữa theo chiều dọc
+        optionsButtonInGame.setBounds(buttonX, buttonY, buttonSize, buttonSize);
+        optionsButtonInGame.addActionListener(e -> togglePause());
+
+        this.add(optionsButtonInGame);
+
     }
 
     public void togglePause() {
@@ -116,9 +133,22 @@ public class GameThread extends JPanel implements Runnable {
     @Override
     public void paintComponent(Graphics grp) {
         super.paintComponent(grp);
-        Graphics2D grp2D = (Graphics2D) (grp);
+        Graphics2D g2d = (Graphics2D) grp;
+        // --- Vẽ các thành phần game BÌNH THƯỜNG ---
         for (PaintComponent paintEntity : PaintData.paintEntities) {
-            paintEntity.Paint(grp);
+             if (paintEntity instanceof pauseMenuPanel) {  
+
+            } else {
+                paintEntity.Paint(grp);
+            }
+        }
+        //ve lop phu khi pause
+        if (paused) {
+            Color originalColor = g2d.getColor();
+            g2d.setColor(new Color(0, 0, 0, 150));
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.setColor(originalColor);
+            // System.out.println("Drawing pause overlay"); // Debug
         }
     }
 
