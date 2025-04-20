@@ -4,6 +4,7 @@ import com.seahorse.model.Board;
 import com.seahorse.model.Board.TileType;
 import com.seahorse.model.Game;
 import com.seahorse.model.GameSetting;
+import com.seahorse.model.SpecialTilesTypeMap;
 import com.seahorse.utils.SeaHorseState;
 import com.seahorse.utils.UpdateComponent;
 import com.seahorse.view.GameView;
@@ -167,7 +168,12 @@ public class GameController implements UpdateComponent{
             //Neu co
                 //xoa csh va ket thuc luot
         if (sh.getState() == SeaHorseState.EndAction) {
+            TileType currentType = game.getBoard().getTileEnum(sh.getRelative()[0], sh.getRelative()[1]);
+            if(isSpecialTile(currentType)){
+                
+            }
             sh.setState(SeaHorseState.CanMove);
+
             EndPlayerTurn();
         }
     }
@@ -253,5 +259,13 @@ public class GameController implements UpdateComponent{
     
             default -> System.out.println("Normal Tile: " + tileType);
         }
+    }
+    private boolean isSpecialTile(TileType tileType) {
+        for (SpecialTilesTypeMap specialTile : SpecialTilesTypeMap.values()) {
+            if (specialTile.name().equals(tileType.name())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
