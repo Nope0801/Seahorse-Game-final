@@ -72,7 +72,7 @@ public class GameController implements UpdateComponent{
         if (sh.getState() == SeaHorseState.IsStep) {
             return;
         }
-                
+
         //Kiem tra trang thai co phai start ko
             //Neu co
                 //Kiem tra o tiep theo co ngua khac ngua dong minh ko
@@ -227,5 +227,31 @@ public class GameController implements UpdateComponent{
         game.getRollButton().UnactiveButton();
         game.getSkipButton().UnactiveButton();
         game.getWinMenu().setIndex(index);
+    }
+    public void handleSpecialTile(TileType tileType, SeaHorseController seaHorse) {
+        if (tileType == null) return;
+    
+        switch (tileType) {
+            case B31 -> {
+                // Di chuyển thêm 3 bước
+                System.out.println("Special Tile: B31 - Move forward 3 steps");
+                int[] nextTile = Board.getNextTile(seaHorse.getRelative()[0], seaHorse.getRelative()[1]);
+                seaHorse.Move(3, nextTile[0], nextTile[1]);
+            }
+    
+            case B29 -> {
+                // Quay lại 2 bước
+                System.out.println("Special Tile: B29 - Move backward 2 steps");
+                int[] previousTile = Board.getNextTile(seaHorse.getRelative()[0], seaHorse.getRelative()[1]);
+                seaHorse.Move(-2, previousTile[0], previousTile[1]);
+            }
+    
+            case B30 -> {
+                // Đổi lượt ngay lập tức
+                System.out.println("Special Tile: B30 - Skip turn");
+            }
+    
+            default -> System.out.println("Normal Tile: " + tileType);
+        }
     }
 }

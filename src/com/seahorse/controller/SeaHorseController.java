@@ -1,7 +1,9 @@
 package com.seahorse.controller;
 
 import com.seahorse.model.Board;
+import com.seahorse.model.Board.TileType;
 import com.seahorse.model.SeaHorse;
+import com.seahorse.model.SpecialTilesTypeMap;
 import com.seahorse.utils.SeaHorseState;
 import com.seahorse.utils.UpdateComponent;
 import com.seahorse.view.SeaHorseView;
@@ -140,8 +142,21 @@ public class SeaHorseController implements UpdateComponent {
         seaHorseData.setStepLeft(seaHorseData.getStepLeft() - 1);
         seaHorseData.setState(SeaHorseState.EndStep);
         // System.out.println(seaHorseData.getStepLeft());
-    }
+        // int[] currentPosition = getRelative();
+        // TileType currentTileType = player.getGameController().getGameData().getBoard().getTileEnum(currentPosition[0], currentPosition[1]);
 
+        // if (currentTileType != null && isSpecialTile(currentTileType)) {
+        //     player.getGameController().handleSpecialTile(currentTileType, this);
+        // }
+    }
+    private boolean isSpecialTile(TileType tileType) {
+        for (SpecialTilesTypeMap specialTile : SpecialTilesTypeMap.values()) {
+            if (specialTile.name().equals(tileType.name())) {
+                return true;
+            }
+        }
+        return false;
+    }
     public void EndAction() {
         seaHorseView.setCurrentAnimation(seaHorseData.getSeaHorseIdleAnimation());
         if (seaHorseData.getStepLeft() == 0) {

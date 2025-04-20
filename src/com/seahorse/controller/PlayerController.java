@@ -10,6 +10,10 @@ public class PlayerController {
     private Player playerData;
     private PlayerView playerView;
 
+    public GameController getGameController() {
+        return gameController;
+    }
+
     String color = "";
     public PlayerController(GameThread panel, GameController _gameController, int[][] spawnPos, int[] startPos, int playerIndex) {
         gameController = _gameController;
@@ -139,4 +143,5 @@ public class PlayerController {
         }
         return c;
     }
+    
 }
