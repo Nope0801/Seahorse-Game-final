@@ -49,6 +49,7 @@ public class GameController implements UpdateComponent{
 
     public void RollDice() {
         game.setDiceNumber(game.getDiceController().Roll());
+        
     }
 
     public void StartPlayerTurn() {
@@ -159,6 +160,7 @@ public class GameController implements UpdateComponent{
                 }
             }
             sh.EndAction();
+            
         }
                 
         //Kiem tra trang thai co phai endaction ko
@@ -201,6 +203,8 @@ public class GameController implements UpdateComponent{
         game.getRollButton().ResetButton();
         game.getSkipButton().ResetButton();
         // System.out.println(game.getCurrentPlayerIndex());
+        game.getBoard().randomizeTileType();
+        panel.repaint();
     }
 
     public Game getGameData() {

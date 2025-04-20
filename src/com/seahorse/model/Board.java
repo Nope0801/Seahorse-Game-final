@@ -8,11 +8,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 public class Board implements PaintComponent{
     private BufferedImage[][] map;
     private TileType[][] tilesType;
-    
+    public static int specialPath[][] = {{1, 6}, {2,6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {6, 5}, { 6, 4}, {6, 3} , { 6, 2}, {6, 1} , {6, 0}, {7, 0},{8,1},{8,2},{8,3},{8,4},{8,5},{8,6},{9,6},{10,6},{11,6},{12,6},{13,6},{14,6},{14,7},{13,8},{12,8},{11, 8}, {10,8}, {9,8}, {8,8},{8,9},{8,10},{8,11},{8,12},{8,13},{8,14},{7,14},{6,13},{6,12},{6,11},{6,10},{6,9},{6,8},{5,8},{4,8},{3,8},{2,8},{1,8},{0,8},{0,7}};
     public static int path[][] = {{1, 6}, {2,6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {6, 5}, { 6, 4}, {6, 3} , { 6, 2}, {6, 1} , {6, 0}, {7, 0},{8,1},{8,2},{8,3},{8,4},{8,5},{8,6},{9,6},{10,6},{11,6},{12,6},{13,6},{14,6},{14,7},{13,8},{12,8},{11, 8}, {10,8}, {9,8}, {8,8},{8,9},{8,10},{8,11},{8,12},{8,13},{8,14},{7,14},{6,13},{6,12},{6,11},{6,10},{6,9},{6,8},{5,8},{4,8},{3,8},{2,8},{1,8},{0,8},{0,7}};
     public static int winPath[][] = {{7,1, 0},{7,2, 0},{7,3, 0},{7,4, 0},{7,5, 0},{7,6, 0},{1,7, 0},{2,7, 0},{3,7, 0},{4,7, 0},{5,7, 0},{6,7, 0},{7,13,0}, {7,12,0},{7,11,0},{7,10,0},{7,9,0},{7,8,0}, {13,7,0}, {12, 7,0}, {11, 7,0}, {10, 7,0}, {9, 7,0}, {8, 7, 0}};
     public int startStableCoordinates[][][] = {
@@ -29,9 +30,9 @@ public class Board implements PaintComponent{
     };
 
     public static int deployIndex[] = {13, 52, 39, 26};
-    
+
     public enum TileType {
-        T1, T2, BF, B, G, GF, RF, R, Y, YF, BC, YC, RC, GC;
+        T1, T2, BF, B, G, GF, RF, R, Y, YF, BC, YC, RC, GC, B31, B29, B30;
     }
 
 
@@ -113,10 +114,22 @@ public class Board implements PaintComponent{
             case "YC" -> images.getYellowcircle();
             case "RC" -> images.getRedcircle();
             case "GC" -> images.getGreencircle();
+            case "B31" -> images.getB31();
+            case "B29" -> images.getB29();
+            case "B30" -> images.getB30();
             default -> null;
         };
     }
 
+    public void updateTileImage(int row, int col, BufferedImage newImage) {
+        if (row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE) {
+            map[row][col] = newImage;
+            System.out.println("Updated tile image at (" + row + ", " + col + ")");
+        } else {
+            System.out.println("Invalid coordinates: (" + row + ", " + col + ")");
+        }
+    }
+    
     public BufferedImage getTileIMG(int x, int y) {
         if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
             return map[y][x];
@@ -153,6 +166,7 @@ public class Board implements PaintComponent{
             }
         }
     }
+
 
     //doi toa do
     public static int[] changeRelativeCoordinates(int row, int col){
@@ -194,6 +208,26 @@ public class Board implements PaintComponent{
         return  result;
     }
 
+    public void randomizeTileType() {
+        Random random = new Random();
+        int randomIndex = random.nextInt(path.length);
+        int x = path[randomIndex][0];
+        int y = path[randomIndex][1];
+    
+        // Chọn ngẫu nhiên một giá trị từ SpecialTilesTypeMap
+        SpecialTilesTypeMap[] specialTiles = SpecialTilesTypeMap.values();
+        SpecialTilesTypeMap randomTileType = specialTiles[random.nextInt(specialTiles.length)];
+    
+        // Cập nhật TileType của ô được chọn
+        tilesType[x][y] = TileType.valueOf(randomTileType.name());
+    
+        // Cập nhật hình ảnh trong map
+        BufferedImage newImage = getImageFromTileType(randomTileType.name());
+        updateTileImage(x, y, newImage);
+    
+        // In ra log để kiểm tra
+        System.out.println("Tile at (" + x + ", " + y + ") changed to " + randomTileType);
+    }
 
     // }
     // public Board(){

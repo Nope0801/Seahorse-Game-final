@@ -9,4 +9,10 @@ public interface PaintComponent {
     }
     
     public void Paint(Graphics g);
+    
+    // public static void RepaintAll() {
+    //     for (PaintComponent component : PaintData.paintEntities) {
+    //         component.Paint(component.getGraphics());
+    //     }
+    // }
 }
