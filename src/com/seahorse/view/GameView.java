@@ -64,6 +64,13 @@ public class GameView implements PaintComponent{
     public void Paint(Graphics g) {
         //DRAW BGR
         g.drawImage(bgrImg, 0, 0, GameSetting.screenWidth, GameSetting.screenHeight, null);
+        
+        startPos = new int[][]{
+            {0, 0},
+            {GameSetting.screenWidth - (64 * 4) - 16, 0},
+            {0, GameSetting.screenHeight - 64 - 36},
+            {GameSetting.screenWidth - (64 * 4) - 16, GameSetting.screenHeight - 64 - 36}
+        };
 
         for (int i = 0; i < game.getPlayersNumber(); i++) {
             for (int j = 0; j < 4; j++) {

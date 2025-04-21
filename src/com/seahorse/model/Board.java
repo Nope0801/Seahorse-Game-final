@@ -42,8 +42,8 @@ public class Board implements PaintComponent{
     private int BOARD_SIZE = 15;
 
     // toa do ban co
-    private static int startX = 651;
-    private static int startY = 50;
+    private static int startX = GameSetting.screenWidth / 2 - 32;
+    private static int startY = GameSetting.screenHeight / 2 - 286;
 
     // load hinh anh
     private ImagesReader images;
@@ -141,6 +141,8 @@ public class Board implements PaintComponent{
 
     @Override
     public void Paint(Graphics g) {
+        startX = GameSetting.screenWidth / 2 - 32;
+        startY = GameSetting.screenHeight / 2 - 286;
         Graphics2D g2d = (Graphics2D)g;
         for(int row = 0; row < BOARD_SIZE; row++){
             for(int col = 0; col < BOARD_SIZE; col++){
