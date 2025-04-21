@@ -44,4 +44,12 @@ public class DiceController{
         System.out.println("Cheat Mode");
         cheatEnable = !cheatEnable;
     }
+
+    public void ActiveBotBanner() {
+        diceView.isBotTurn = true;
+    }
+
+    public void DeactiveBotBanner() {
+        diceView.isBotTurn = false;
+    }
 }

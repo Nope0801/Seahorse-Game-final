@@ -105,7 +105,7 @@ public class Board implements PaintComponent{
     public void resetTileType() {
         loadMapFromFile("./../../../resources/map/map03.txt");
     }
-    private BufferedImage getImageFromTileType(String type) {
+    public BufferedImage getImageFromTileType(String type) {
         return switch (type) {
             case "T1" -> images.getTileImage1();
             case "T2" -> images.getTileImage2();
@@ -266,6 +266,10 @@ public class Board implements PaintComponent{
                 }
             }
         }
+    }
+    
+    public void setTilesTypeAt(int x, int y, TileType tileType) {
+        tilesType[x][y] = tileType;
     }
 
     // }

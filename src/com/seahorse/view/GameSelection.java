@@ -23,14 +23,14 @@ public class GameSelection extends JPanel {
     private List<JButton> rightArrowButtons;
 
     private String[] characterAnimationFolderPaths = {
-        "/resources/sprites/SeaHorse/red/dinasour/idle_animation/", 
-        "/resources/sprites/SeaHorse/blue/dinasour/idle_animation/", 
-        "/resources/sprites/SeaHorse/green/dinasour/idle_animation/", 
-        "/resources/sprites/SeaHorse/yellow/dinasour/idle_animation/",
-        "/resources/sprites/SeaHorse/red/default/idle_animation/",
-        "/resources/sprites/SeaHorse/blue/default/idle_animation/",
-        "/resources/sprites/SeaHorse/green/default/idle_animation/",
-        "/resources/sprites/SeaHorse/yellow/default/idle_animation/",
+        "/resources/sprites/SeaHorse/red/dinasour", 
+        "/resources/sprites/SeaHorse/blue/dinasour", 
+        "/resources/sprites/SeaHorse/green/dinasour", 
+        "/resources/sprites/SeaHorse/yellow/dinasour",
+        "/resources/sprites/SeaHorse/red/default",
+        "/resources/sprites/SeaHorse/blue/default",
+        "/resources/sprites/SeaHorse/green/default",
+        "/resources/sprites/SeaHorse/yellow/default",
 
     };
     private String[] characterBaseColors = {
@@ -46,6 +46,9 @@ public class GameSelection extends JPanel {
 
     private JComboBox<Integer> playerCountComboBox;
     private final Integer[] playerCounts = {2, 3, 4};
+    
+    private JComboBox<Integer> botCountComboBox;
+    private Integer[] botCounts = {0, 1, 2, 3};
 
     public GameSelection(MainMenu parent) {
         this.parent = parent;
@@ -79,6 +82,20 @@ public class GameSelection extends JPanel {
         numPlayer.add(numPlayersLabel);
         numPlayer.add(playerCountComboBox);
 
+        JLabel numBotsLabel = createPixelLabel("Number of Bots:", 20, Color.WHITE);
+        botCountComboBox = new JComboBox<>(botCounts);
+        botCountComboBox.setFont(new Font("Pixel Intv", Font.PLAIN, 20));
+        botCountComboBox.setPreferredSize(new Dimension(100, 30));
+        botCountComboBox.addActionListener(e -> {
+            int botNumb = (int) botCountComboBox.getSelectedItem();
+            System.out.println(botNumb);
+            PlayerNumberAndSkin.isBot = new boolean[]{false, false, false, false};
+            for (int i = getPlayerCount() - botNumb; i < getPlayerCount(); i++) {
+                PlayerNumberAndSkin.isBot[i] = true;
+            }
+        });
+        numPlayer.add(numBotsLabel);
+        numPlayer.add(botCountComboBox);
 
         // --- Panel Trung Tâm Chọn Nhân Vật ---
         int horizontalGap = 150;
@@ -142,7 +159,18 @@ public class GameSelection extends JPanel {
 
        int selectedCount = (int) selectedItem;
        System.out.println("Updating visibility for " + selectedCount + " players.");
-
+        switch (selectedCount) {
+            case 2:
+                botCounts = new Integer[]{0, 1};
+                break;
+            case 3:
+                 botCounts = new Integer[]{0, 1, 2};
+                break;
+            case 4:
+                botCounts = new Integer[]{0, 1, 2, 3, 4};
+                break;
+        }
+        botCountComboBox.setModel(new DefaultComboBoxModel<>(botCounts));
        for (int i = 0; i < MAX_PLAYERS; i++) {
             boolean isVisible = i < selectedCount; 
             if (i < characterSelectionPanels.size()) {
@@ -166,7 +194,7 @@ public class GameSelection extends JPanel {
             List<ImageIcon> frames = new ArrayList<>();
             int frameIndex = 0;
             while (true) {
-                String filePath = folderPath + frameIndex + ".png";
+                String filePath = folderPath + "/idle_animation/" + frameIndex + ".png";
                 URL imgUrl = getClass().getResource(filePath);
                 if (imgUrl != null) {
                     try {
@@ -376,7 +404,6 @@ public class GameSelection extends JPanel {
             String color;
             if (selectedSkinIndex < characterBaseColors.length) {
                  color = characterBaseColors[selectedSkinIndex];
-                 // Hoặc bạn có thể có logic phức tạp hơn để xác định màu từ skin path
             } else {
                  // Nếu index vượt quá số màu cơ bản, dùng màu mặc định hoặc báo lỗi
                  color = "DefaultColor" + i; // Ví dụ: đảm bảo không trùng

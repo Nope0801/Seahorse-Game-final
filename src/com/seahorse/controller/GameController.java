@@ -13,6 +13,8 @@ import com.seahorse.utils.GameUpdate;
 import com.seahorse.utils.SeaHorseState;
 import com.seahorse.utils.UpdateComponent;
 import com.seahorse.view.GameView;
+
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,10 +37,8 @@ public class GameController implements UpdateComponent {
         game.setBoard();
 
         game.setEntitiesMap();
-
-        boolean[] isBot = {true, true, true, true};
         
-        game.setPlayersController(PlayerNumberAndSkin.playersNumber, panel, this, isBot);
+        game.setPlayersController(PlayerNumberAndSkin.playersNumber, panel, this, PlayerNumberAndSkin.isBot);
 
         game.setCurrentPlayerIndex(0);
 
@@ -61,9 +61,12 @@ public class GameController implements UpdateComponent {
 
         // Tự động tung xúc xắc và bắt đầu lượt cho bot
         if (game.getPlayerController() instanceof BotController && game.getDiceNumber() == 0) {
+            game.getDiceController().ActiveBotBanner();
+            game.getSkipButton().UnactiveButton();
+            game.getRollButton().UnactiveButton();
             try {
                 Thread.yield();
-                Thread.sleep(200);
+                Thread.sleep(100);
                 RollDice();
                 StartPlayerTurn();
             } catch (InterruptedException e) {
@@ -197,6 +200,9 @@ public class GameController implements UpdateComponent {
                 TileType currentTileType = game.getBoard().getTileEnum(currentPosition[1], currentPosition[0]);
                 if (isSpecialTile(currentTileType)) {
                     handleSpecialTile(currentType, sh);
+                    game.getBoard().setTilesTypeAt(sh.getRelative()[0], sh.getRelative()[1], TileType.T1);
+                    BufferedImage tileImage = game.getBoard().getImageFromTileType("T1"); // Assuming getTileImage(TileType) exists
+                    game.getBoard().updateTileImage(sh.getRelative()[0], sh.getRelative()[1], tileImage);
                 }
             }
             if (sh.getState() != SeaHorseState.StartStep) {
@@ -225,6 +231,7 @@ public class GameController implements UpdateComponent {
     }
 
     public void EndPlayerTurn() {
+        game.getDiceController().DeactiveBotBanner();
         game.getPlayerController().EndPlayerAction();
         if (game.getDiceNumber() != 6) {
             game.setCurrentPlayerIndex(game.getCurrentPlayerIndex() + 1);

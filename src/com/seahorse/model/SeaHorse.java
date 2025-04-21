@@ -50,8 +50,8 @@ public class SeaHorse {
         }
         // seaHorseMoveAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/" + skinID + "/move_animation").listFiles();
         // seaHorseIdleAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/" + skinID + "/idle_animation").listFiles();
-        seaHorseMoveAnimationFolder = new File("src" + skinID).listFiles();
-        seaHorseIdleAnimationFolder = new File("src" + skinID).listFiles();
+        seaHorseMoveAnimationFolder = new File("src" + skinID + "/move_animation").listFiles();
+        seaHorseIdleAnimationFolder = new File("src" + skinID + "/idle_animation").listFiles();
 
         for (File file : seaHorseMoveAnimationFolder) {
             seaHorseMoveAnimation.add(ImageFromPath.GetBufferedImageFromPath(file.getPath()));
@@ -155,7 +155,7 @@ public class SeaHorse {
 
     public void setLinePixels(List<int[]> linePixels) {
         this.linePixels = linePixels;
-        pixelSpeed = (int) ((float) linePixels.size() / (GameSetting.maxFPS * 0.1f));
+        pixelSpeed = (int) ((float) linePixels.size() / (GameSetting.maxFPS * 0.2f));
         if (pixelSpeed == 0) pixelSpeed = 1;
     }
     
