@@ -38,7 +38,7 @@ public class GameController implements UpdateComponent {
 
         boolean[] isBot = {true, true, true, true};
         
-        game.setPlayersController(4, panel, this, isBot);
+        game.setPlayersController(PlayerNumberAndSkin.playersNumber, panel, this, isBot);
 
         game.setCurrentPlayerIndex(0);
 
@@ -55,7 +55,7 @@ public class GameController implements UpdateComponent {
     }
 
     @Override
-     public void Update() {
+    public void Update() {
         SeaHorseMonitor();
         CheckPlayersProgress();
 
