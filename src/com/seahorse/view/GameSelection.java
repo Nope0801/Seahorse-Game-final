@@ -1,5 +1,6 @@
 package com.seahorse.view;
 
+import com.seahorse.model.PlayerNumberAndSkin;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -405,6 +406,11 @@ public class GameSelection extends JPanel {
         System.out.println("Starting game with " + numPlayers + " players.");
         System.out.println("Selected colors: " + finalPlayerColors);
         System.out.println("Selected skin paths: " + finalPlayerSkinPaths); // <<--- In ra đường dẫn skin
+
+        PlayerNumberAndSkin.playersNumber = getPlayerCount();
+        for (int i = 0; i < getPlayerCount(); i++) {
+            PlayerNumberAndSkin.playersSkin[i] = getSelectedCharacterSkins().get(i);
+        }
 
         // --- Khởi động game ---
         if (parent.bgrMusic != null) { parent.bgrMusic.stop(); }

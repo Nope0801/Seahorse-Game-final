@@ -30,12 +30,28 @@ public class SeaHorse {
     public boolean isInFinish = false;
     public boolean isInGoal = false;
 
+    private String skinID;
+
     public SeaHorse(String c) {
         state = SeaHorseState.InStable;
 
         color = c;
-        seaHorseMoveAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/dinasour/move_animation").listFiles();
-        seaHorseIdleAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/dinasour/idle_animation").listFiles();
+        skinID = PlayerNumberAndSkin.playersSkin[0];
+        switch (c) {
+            case "blue":
+                skinID = PlayerNumberAndSkin.playersSkin[1];
+                break;
+            case "green":
+                skinID = PlayerNumberAndSkin.playersSkin[2];
+                break;
+            case "yellow":
+                skinID = PlayerNumberAndSkin.playersSkin[3];
+                break;
+        }
+        // seaHorseMoveAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/" + skinID + "/move_animation").listFiles();
+        // seaHorseIdleAnimationFolder = new File("src/resources/sprites/SeaHorse/" + color + "/" + skinID + "/idle_animation").listFiles();
+        seaHorseMoveAnimationFolder = new File("src" + skinID).listFiles();
+        seaHorseIdleAnimationFolder = new File("src" + skinID).listFiles();
 
         for (File file : seaHorseMoveAnimationFolder) {
             seaHorseMoveAnimation.add(ImageFromPath.GetBufferedImageFromPath(file.getPath()));

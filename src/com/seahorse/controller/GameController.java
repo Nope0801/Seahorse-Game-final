@@ -5,6 +5,7 @@ import com.seahorse.model.Board.TileType;
 import com.seahorse.model.Game;
 import com.seahorse.model.GameSaveData;
 import com.seahorse.model.GameSetting;
+import com.seahorse.model.PlayerNumberAndSkin;
 import com.seahorse.model.PlayerSaveData;
 import com.seahorse.model.SeaHorseSaveData;
 import com.seahorse.utils.GameSaveManager;
@@ -34,7 +35,7 @@ public class GameController implements UpdateComponent {
 
         game.setEntitiesMap();
 
-        game.setPlayersController(4, panel, this);
+        game.setPlayersController(PlayerNumberAndSkin.playersNumber, panel, this);
         game.setCurrentPlayerIndex(0);
 
         game.setSkipButton(GameSetting.screenWidth / 2 - 275, GameSetting.screenHeight - 117, this);
