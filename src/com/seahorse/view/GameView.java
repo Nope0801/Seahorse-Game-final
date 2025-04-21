@@ -92,4 +92,9 @@ public class GameView implements PaintComponent{
             System.out.println(index + " " + number);
         }
     }
+
+    private BufferedImage contextBgr = ImageFromPath.GetBufferedImageFromPath("src/resources/sprites/WinMenu/win_bgr.png");
+    public void showContext() {
+        
+    }
 }

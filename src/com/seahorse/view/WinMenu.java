@@ -1,10 +1,14 @@
-package com.seahorse.view;
+    package com.seahorse.view;
 
 import com.seahorse.model.GameSetting;
 import com.seahorse.utils.ImageFromPath;
 import com.seahorse.utils.PaintComponent;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WinMenu implements PaintComponent {
     private boolean isEnd = false;
@@ -35,6 +39,13 @@ public class WinMenu implements PaintComponent {
 
     @Override
     public void Paint(Graphics g) {
+        if (canShow) {
+            g.setFont(new Font("Arial", Font.BOLD, 100));
+            g.setColor(Color.WHITE);
+            g.drawImage(bgr, 0, GameSetting.screenHeight / 2 - (GameSetting.screenHeight / 3) / 2, GameSetting.screenWidth, GameSetting.screenHeight / 3, null);
+            g.drawImage(effectText,0, GameSetting.screenHeight / 2 - (GameSetting.screenHeight / 3) / 2, GameSetting.screenWidth, GameSetting.screenHeight / 3, null);
+        }
+
         if (!isEnd) return;
         g.drawImage(bgr, 0, 0, GameSetting.screenWidth, GameSetting.screenHeight, null);
         g.drawImage(winText, 0, 20, GameSetting.screenWidth, GameSetting.screenHeight, null);
@@ -57,5 +68,29 @@ public class WinMenu implements PaintComponent {
                 break;
         }
         isEnd = true;
+    }
+
+    private boolean canShow = false;
+    private BufferedImage effectText;
+    public void ShowContext(int i) {
+        canShow = true;
+        switch (i) {
+            case 0:
+                effectText = ImageFromPath.GetBufferedImageFromPath("src/resources/sprites/EffectText/bonus_txt.png");
+                break;
+            case 1:
+                effectText = ImageFromPath.GetBufferedImageFromPath("src/resources/sprites/EffectText/fall_txt.png");  
+                break;
+        }
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                canShow = false;
+                timer.cancel();
+            }
+        };
+
+        timer.schedule(task, 2000);
     }
 }

@@ -15,6 +15,7 @@ import com.seahorse.utils.UpdateComponent;
 import com.seahorse.view.GameView;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameController implements UpdateComponent {
     private GameThread panel;
@@ -182,8 +183,12 @@ public class GameController implements UpdateComponent {
                     handleSpecialTile(currentType, sh);
                 }
             }
-            sh.setState(SeaHorseState.CanMove);
-            EndPlayerTurn();
+            if (sh.getState() != SeaHorseState.StartStep) {
+                if (currentType != TileType.B30) {
+                    sh.setState(SeaHorseState.CanMove);
+                }
+                EndPlayerTurn();
+            }
 
         }
     }
@@ -334,22 +339,23 @@ public class GameController implements UpdateComponent {
         if (tileType == null) return;
         if(tileType == TileType.B31){
             System.out.println("Special Tile: Dark Blue");
-            // int[] test = seaHorse.getRelative();
-            // System.err.println(test[0] + " " + test[1]);
-            // seaHorse.Move(1, seaHorse.getRelative()[0], seaHorse.getRelative()[1]);
-                        
+            int randomStepNumber = new Random().nextInt(3) + 1;
+            seaHorse.getSeaHorseData().setStepLeft(randomStepNumber);
+            seaHorse.setState(SeaHorseState.StartStep);
+            game.getWinMenu().ShowContext(0);
         }
-
         if(tileType == TileType.B29){
             System.out.println("Special Tile: Pink");
-            // int[] test = seaHorse.getRelative();
-            // System.err.println(test[0] + " " + test[1]);
+            
         }
         if(tileType == TileType.B30){
             System.out.println("Special Tile: Hole");
-            // int[] test = seaHorse.getRelative();
-            // System.err.println(test[0] + " " + test[1]);
-
+            RemoveSeaHorseOnMap(seaHorse.getRelative()[0], seaHorse.getRelative()[1]);
+            seaHorse.BackToStable();
+            seaHorse.setState(SeaHorseState.IsStep);
+            seaHorse.getSeaHorseData().isInFinish = false;
+            AddSeaHorseOnMap(seaHorse, seaHorse.getRelative()[0], seaHorse.getRelative()[1]);
+            game.getWinMenu().ShowContext(1);
         }
         // switch (tileType) {
         //     case B31 -> {
