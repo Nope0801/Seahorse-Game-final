@@ -42,7 +42,9 @@ public class GameThread extends JPanel implements Runnable {
     }
 
     public void setupGame() {
+        
         gameController = new GameController(this);
+
 
         pauseMenuPanel = new pauseMenuPanel(this, gameController, gameFrame);
         int menuWidth = 450;

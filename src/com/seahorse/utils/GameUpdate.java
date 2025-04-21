@@ -8,7 +8,7 @@ import com.seahorse.utils.SeaHorseState;
 
 public class GameUpdate {
 
-    public static void spawnHorseForPlayer(GameController gameController, int playerIndex, int horseIndex, int relX, int relY, SeaHorseState state, boolean ifn, boolean ig) {
+    public static void spawnHorseForPlayer(GameController gameController, int playerIndex, int horseIndex, int relX, int relY, SeaHorseState state, boolean ifn, boolean ig, String sId) {
         PlayerController pc = gameController.getGameData().getPlayersController().get(playerIndex);
         SeaHorseController horseCtrl = pc.getSeaHorses()[horseIndex];
 
@@ -28,6 +28,7 @@ public class GameUpdate {
         horseCtrl.getSeaHorseData().setState(state);
         horseCtrl.getSeaHorseData().setInFinish(ifn);
         horseCtrl.getSeaHorseData().setInGoal(ig);
+        horseCtrl.getSeaHorseData().setSkinID(sId);
 
         // Thêm vào bản đồ
         gameController.getGameData().getEntitiesMap().AddSeaHorseToTile(horseCtrl, relX, relY);

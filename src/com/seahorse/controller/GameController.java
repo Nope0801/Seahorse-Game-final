@@ -294,6 +294,7 @@ public class GameController implements UpdateComponent {
                  if (j >= player.getSeaHorses().length) break; // Đảm bảo không vượt quá số ngựa
 
                 SeaHorseSaveData horseData = playerData.getSeaHorses().get(j);
+                
                 // Gọi hàm cập nhật ngựa (đã có)
                 GameUpdate.spawnHorseForPlayer(
                     gameController,
@@ -303,7 +304,8 @@ public class GameController implements UpdateComponent {
                     horseData.getRelativeY(),
                     horseData.getState(),
                     horseData.getIsInFinish(), 
-                    horseData.getIsInGoal() 
+                    horseData.getIsInGoal(),
+                    horseData.getSkinId()
                 );
             }
         }

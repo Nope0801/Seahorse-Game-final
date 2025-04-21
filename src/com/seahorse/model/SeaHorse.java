@@ -22,8 +22,8 @@ public class SeaHorse {
     private int pixelSpeed;
 
     private String color = "";
-    private ArrayList<BufferedImage> seaHorseMoveAnimation = new ArrayList<>();
-    private ArrayList<BufferedImage> seaHorseIdleAnimation = new ArrayList<>();
+    public ArrayList<BufferedImage> seaHorseMoveAnimation = new ArrayList<>();
+    public ArrayList<BufferedImage> seaHorseIdleAnimation = new ArrayList<>();
     private File seaHorseMoveAnimationFolder[];
     private File seaHorseIdleAnimationFolder[];
 
@@ -185,5 +185,20 @@ public class SeaHorse {
     public boolean getIsInGoal(){
         return this.isInGoal;
     } 
+    public String getSkinID() {
+        return skinID;
+    }
+    public void setSkinID(String skinID) {
+        this.skinID = skinID;
+        seaHorseMoveAnimationFolder = new File("src" + skinID).listFiles();
+        seaHorseIdleAnimationFolder = new File("src" + skinID).listFiles();
+
+        for (File file : seaHorseMoveAnimationFolder) {
+            seaHorseMoveAnimation.add(ImageFromPath.GetBufferedImageFromPath(file.getPath()));
+        }
+        for (File file : seaHorseIdleAnimationFolder) {
+            seaHorseIdleAnimation.add(ImageFromPath.GetBufferedImageFromPath(file.getPath()));
+        }
+    }
 
 }

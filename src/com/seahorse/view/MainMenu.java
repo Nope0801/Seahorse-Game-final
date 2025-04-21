@@ -220,6 +220,7 @@ public class MainMenu extends JFrame {
     // Hàm loadContinueGame
     private void loadContinueGame() {
         // System.out.println("Continue button clicked. Attempting to load save.dat...");
+        
         GameSaveData saveData = GameSaveManager.loadGame();
 
         if (saveData != null) {

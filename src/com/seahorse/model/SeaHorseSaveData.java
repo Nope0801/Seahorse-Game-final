@@ -19,6 +19,7 @@ public class SeaHorseSaveData implements Serializable {
         this.state = seaHorse.getState(); 
         this.isInFinish = seaHorse.getIsInFinish();
         this.isInGoal = seaHorse.getIsInGoal();
+        this.skinId = seaHorse.getSkinID();
     }
 
     // Getters & Setters
