@@ -8,7 +8,7 @@ import com.seahorse.view.PlayerView;
 public class PlayerController {
     private GameController gameController;
     private Player playerData;
-    private PlayerView playerView;
+    protected PlayerView playerView;
 
     public GameController getGameController() {
         return gameController;

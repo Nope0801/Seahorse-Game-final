@@ -28,7 +28,8 @@ public class GameController implements UpdateComponent{
         
         game.setEntitiesMap();
 
-        game.setPlayersController(4, panel, this);
+        boolean[] isBot = {true, true, true, true};
+        game.setPlayersController(4, panel, this, isBot);
         game.setCurrentPlayerIndex(0);
 
         game.setSkipButton(GameSetting.screenWidth / 2 - 275, GameSetting.screenHeight - 117, this);
@@ -47,6 +48,17 @@ public class GameController implements UpdateComponent{
     public void Update() {
         SeaHorseMonitor();
         CheckPlayersProgress();
+
+        // Tự động tung xúc xắc và bắt đầu lượt cho bot
+        if (game.getPlayerController() instanceof BotController && game.getDiceNumber() == 0) {
+            try {
+                Thread.sleep(2); // Độ trễ 1 giây để mô phỏng hành động
+                RollDice();
+                StartPlayerTurn();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void RollDice() {

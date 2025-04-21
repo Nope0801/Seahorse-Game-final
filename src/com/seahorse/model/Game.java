@@ -2,6 +2,7 @@ package com.seahorse.model;
 
 import com.seahorse.controller.Button.RollButton;
 import com.seahorse.controller.Button.SkipButton;
+import com.seahorse.controller.BotController;
 import com.seahorse.controller.DiceController;
 import com.seahorse.controller.EntitiesMapController;
 import com.seahorse.controller.GameController;
@@ -57,10 +58,14 @@ public class Game {
         return playersController.get(currentPlayerIndex);
     }
 
-    public void setPlayersController(int playersNumber, GameThread panel, GameController gameController) {
+    public void setPlayersController(int playersNumber, GameThread panel, GameController gameController, boolean[] isBot) {
         this.playersNumber = playersNumber;
         for (int i = 0; i < playersNumber; i++) {
-            playersController.add(new PlayerController(panel, gameController, board.startStableCoordinates[i], board.deployCoordinates[i], i));
+            if (isBot[i]) {
+                playersController.add(new BotController(panel, gameController, board.startStableCoordinates[i], board.deployCoordinates[i], i));
+            } else {
+                playersController.add(new PlayerController(panel, gameController, board.startStableCoordinates[i], board.deployCoordinates[i], i));
+            }
         }
     }
 
