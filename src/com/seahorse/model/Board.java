@@ -259,11 +259,10 @@ public class Board implements PaintComponent{
     public void PaintTile(){
         for(int i=0;i<15;i++){
             for(int j=0;j<15;j++){
-                if (tilesType[i][j] != null) {
+                if (tilesType[i][j]==TileType.B29||tilesType[i][j]==TileType.B30||tilesType[i][j]==TileType.B31) {
+                    
                     BufferedImage newImage = getImageFromTileType(tilesType[i][j].name());
                     updateTileImage(i, j, newImage);
-                } else {
-                    System.err.println("Error: TileType 'test' is null.");
                 }
             }
         }
