@@ -1,18 +1,21 @@
 package com.seahorse.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.seahorse.model.Board;
 import com.seahorse.model.Player;
 import com.seahorse.model.SeaHorse;
 import com.seahorse.utils.SeaHorseState;
 import com.seahorse.view.PlayerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerController {
-    private GameController gameController;
+    protected GameController gameController;
     private Player playerData;
-    private PlayerView playerView;
+    protected PlayerView playerView;
+
+    public GameController getGameController() {
+        return gameController;
+    }
 
     String color = "";
     public PlayerController(GameThread panel, GameController _gameController, int[][] spawnPos, int[] startPos, int playerIndex) {
