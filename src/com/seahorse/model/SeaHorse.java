@@ -190,8 +190,8 @@ public class SeaHorse {
     }
     public void setSkinID(String skinID) {
         this.skinID = skinID;
-        seaHorseMoveAnimationFolder = new File("src" + skinID).listFiles();
-        seaHorseIdleAnimationFolder = new File("src" + skinID).listFiles();
+        seaHorseMoveAnimationFolder = new File("src" + skinID + "/move_animation").listFiles();
+        seaHorseIdleAnimationFolder = new File("src" + skinID + "/idle_animation").listFiles();
 
         for (File file : seaHorseMoveAnimationFolder) {
             seaHorseMoveAnimation.add(ImageFromPath.GetBufferedImageFromPath(file.getPath()));
