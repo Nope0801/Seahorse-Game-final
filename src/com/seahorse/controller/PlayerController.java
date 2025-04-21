@@ -6,7 +6,7 @@ import com.seahorse.utils.SeaHorseState;
 import com.seahorse.view.PlayerView;
 
 public class PlayerController {
-    private GameController gameController;
+    protected GameController gameController;
     private Player playerData;
     protected PlayerView playerView;
 

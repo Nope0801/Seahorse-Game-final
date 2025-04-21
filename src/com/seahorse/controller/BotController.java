@@ -52,7 +52,8 @@ public class BotController extends PlayerController {
             ChooseSeaHorseToMove(index);
         } else {
             // Nếu không thể di chuyển hoặc spawn, bỏ lượt
-            EndPlayerAction();
+           gameController.EndPlayerTurn();
+            
         }
     }
 
@@ -69,7 +70,7 @@ public class BotController extends PlayerController {
                 break;
             }
         }
-        EndPlayerAction();
+        // EndPlayerAction();
     }
 
     @Override
@@ -85,6 +86,7 @@ public class BotController extends PlayerController {
     public void EndPlayerAction() {
         // Bot không cần ẩn nút giao diện, chỉ cần thông báo kết thúc hành động
         playerView.DeactiveAllButton();
+       
         System.out.println("Bot ended action");
     }
 }
