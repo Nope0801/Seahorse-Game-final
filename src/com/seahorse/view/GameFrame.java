@@ -37,6 +37,7 @@ public class GameFrame extends JFrame {
         SwingUtilities.invokeLater(() -> {
             PlayerNumberAndSkin.playersNumber = saveData.getPlayersNumber();
             PlayerNumberAndSkin.playersSkin = saveData.getPlayersSkin();
+            PlayerNumberAndSkin.isBot = saveData.getIsBot();
             gameThread.startGameThread();
              Timer waitTimer = new Timer(100, e -> {
                  if (gameThread.getGameController() != null) {

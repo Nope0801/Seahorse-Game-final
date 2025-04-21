@@ -298,7 +298,7 @@ public class GameController implements UpdateComponent {
         TileType[][] tileType = game.getBoard().getTilesType();
         // PlayerNumberAndSkin playerNumberAndSkin = new PlayerNumberAndSkin(PlayerNumberAndSkin.playersNumber, PlayerNumberAndSkin.playersSkin);
 
-        GameSaveData saveData = new GameSaveData(players, currentPlayerIndex, diceNumber, PlayerNumberAndSkin.playersNumber, PlayerNumberAndSkin.playersSkin, tileType);
+        GameSaveData saveData = new GameSaveData(players, currentPlayerIndex, diceNumber, PlayerNumberAndSkin.playersNumber, PlayerNumberAndSkin.playersSkin, PlayerNumberAndSkin.isBot, tileType);
 
         GameSaveManager.saveGame(saveData);
     }

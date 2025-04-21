@@ -12,15 +12,17 @@ public class GameSaveData implements Serializable {
     private int diceNumber;
     private int playersNumber;
     private String playersSkin[] ;
+    private boolean isBot[];
     private TileType[][] tiles;
 
-    public GameSaveData(List<PlayerSaveData> players, int currentPlayerIndex, int diceNumber, int nb,String playersSkin[] , TileType[][] tiles) {
+    public GameSaveData(List<PlayerSaveData> players, int currentPlayerIndex, int diceNumber, int nb,String playersSkin[] , boolean isBot[], TileType[][] tiles) {
         
         this.players = players;
         this.currentPlayerIndex = currentPlayerIndex;
         this.diceNumber = diceNumber;
         playersNumber = nb;
         this.playersSkin=playersSkin;
+        this.isBot = isBot;
         this.tiles = tiles;
     }
     // public GameSaveData( List<PlayerSaveData> players, int currentPlayerIndex, int diceNumber) {
@@ -49,5 +51,9 @@ public class GameSaveData implements Serializable {
     }
     public String[] getPlayersSkin() {
         return playersSkin;
+    }
+
+    public boolean[] getIsBot() {
+        return isBot;
     }
 }
