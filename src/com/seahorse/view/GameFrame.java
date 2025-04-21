@@ -4,6 +4,7 @@ package com.seahorse.view;
 import com.seahorse.controller.GameThread;
 import com.seahorse.model.GameSaveData; // Import GameSaveData
 import com.seahorse.model.GameSetting;
+import com.seahorse.model.PlayerNumberAndSkin;
 import javax.swing.*;
 
 public class GameFrame extends JFrame {
@@ -34,6 +35,7 @@ public class GameFrame extends JFrame {
         this.add(gameThread);
 
         SwingUtilities.invokeLater(() -> {
+            PlayerNumberAndSkin.playersNumber = saveData.getPlayersNumber();
             gameThread.startGameThread();
              Timer waitTimer = new Timer(100, e -> {
                  if (gameThread.getGameController() != null) {
