@@ -144,19 +144,19 @@ public class SeaHorseController implements UpdateComponent {
         // System.out.println(seaHorseData.getStepLeft());
         // int[] currentPosition = getRelative();
         // TileType currentTileType = player.getGameController().getGameData().getBoard().getTileEnum(currentPosition[0], currentPosition[1]);
-
+        // if (seaHorseData.getStepLeft() == 0) {
+        //     int[] currentPosition = getRelative();
+        //     TileType currentTileType = player.getGameController().getGameData().getBoard().getTileEnum(currentPosition[0], currentPosition[1]);
+            
+        //     if (isSpecialTile(currentTileType)) {
+        //         player.getGameController().handleSpecialTile(currentTileType, this);
+        //     }
+        // }
         // if (currentTileType != null && isSpecialTile(currentTileType)) {
         //     player.getGameController().handleSpecialTile(currentTileType, this);
         // }
     }
-    private boolean isSpecialTile(TileType tileType) {
-        for (SpecialTilesTypeMap specialTile : SpecialTilesTypeMap.values()) {
-            if (specialTile.name().equals(tileType.name())) {
-                return true;
-            }
-        }
-        return false;
-    }
+    
     public void EndAction() {
         seaHorseView.setCurrentAnimation(seaHorseData.getSeaHorseIdleAnimation());
         if (seaHorseData.getStepLeft() == 0) {

@@ -10,31 +10,49 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-public class Board implements PaintComponent{
+public class Board implements PaintComponent {
     private BufferedImage[][] map;
     private TileType[][] tilesType;
-    public static int specialPath[][] = {{1, 6},{2,6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {6, 5}, { 6, 4}, {6, 3} , { 6, 2}, {6, 1} , {6, 0},{8,1},{8,2},{8,3},{8,4},{8,5},{8,6},{9,6},{10,6},{11,6},{12,6},{13,6},{14,6},{13,8},{12,8},{11, 8}, {10,8}, {9,8}, {8,8},{8,9},{8,10},{8,11},{8,12},{8,13},{8,14},{6,13},{6,12},{6,11},{6,10},{6,9},{6,8},{5,8},{4,8},{3,8},{2,8},{1,8},{0,8}};
-    public static int path[][] = {{1, 6}, {2,6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {6, 5}, { 6, 4}, {6, 3} , { 6, 2}, {6, 1} , {6, 0}, {7, 0},{8,1},{8,2},{8,3},{8,4},{8,5},{8,6},{9,6},{10,6},{11,6},{12,6},{13,6},{14,6},{14,7},{13,8},{12,8},{11, 8}, {10,8}, {9,8}, {8,8},{8,9},{8,10},{8,11},{8,12},{8,13},{8,14},{7,14},{6,13},{6,12},{6,11},{6,10},{6,9},{6,8},{5,8},{4,8},{3,8},{2,8},{1,8},{0,8},{0,7}};
-    public static int winPath[][] = {{7,1, 0},{7,2, 0},{7,3, 0},{7,4, 0},{7,5, 0},{7,6, 0},{1,7, 0},{2,7, 0},{3,7, 0},{4,7, 0},{5,7, 0},{6,7, 0},{7,13,0}, {7,12,0},{7,11,0},{7,10,0},{7,9,0},{7,8,0}, {13,7,0}, {12, 7,0}, {11, 7,0}, {10, 7,0}, {9, 7,0}, {8, 7, 0}};
+    public static int specialPath[][] = { { 1, 6 }, { 2, 6 }, { 3, 6 }, { 4, 6 }, { 5, 6 }, { 6, 6 }, { 6, 5 },
+            { 6, 4 }, { 6, 3 }, { 6, 2 }, { 6, 1 }, { 6, 0 }, { 8, 1 }, { 8, 2 }, { 8, 3 }, { 8, 4 }, { 8, 5 },
+            { 8, 6 }, { 9, 6 }, { 10, 6 }, { 11, 6 }, { 12, 6 }, { 13, 6 }, { 14, 6 }, { 13, 8 }, { 12, 8 }, { 11, 8 },
+            { 10, 8 }, { 9, 8 }, { 8, 8 }, { 8, 9 }, { 8, 10 }, { 8, 11 }, { 8, 12 }, { 8, 13 }, { 8, 14 }, { 6, 13 },
+            { 6, 12 }, { 6, 11 }, { 6, 10 }, { 6, 9 }, { 6, 8 }, { 5, 8 }, { 4, 8 }, { 3, 8 }, { 2, 8 }, { 1, 8 },
+            { 0, 8 } };
+    // public static int path[][] = { { 1, 6 }, { 2, 6 }, { 3, 6 }, { 4, 6 }, { 5, 6 }, { 6, 6 }, { 6, 5 }, { 6, 4 },
+    //         { 6, 3 }, { 6, 2 }, { 6, 1 }, { 6, 0 }, { 7, 0 }, { 8, 1 }, { 8, 2 }, { 8, 3 }, { 8, 4 }, { 8, 5 },
+    //         { 8, 6 }, { 9, 6 }, { 10, 6 }, { 11, 6 }, { 12, 6 }, { 13, 6 }, { 14, 6 }, { 14, 7 }, { 13, 8 }, { 12, 8 },
+    //         { 11, 8 }, { 10, 8 }, { 9, 8 }, { 8, 8 }, { 8, 9 }, { 8, 10 }, { 8, 11 }, { 8, 12 }, { 8, 13 }, { 8, 14 },
+    //         { 7, 14 }, { 6, 13 }, { 6, 12 }, { 6, 11 }, { 6, 10 }, { 6, 9 }, { 6, 8 }, { 5, 8 }, { 4, 8 }, { 3, 8 },
+    //         { 2, 8 }, { 1, 8 }, { 0, 8 }, { 0, 7 } };
+    public static int path[][] = { { 1, 6 }, { 2, 6 }, { 3, 6 }, { 4, 6 }, { 5, 6 }, { 6, 6 }, { 6, 5 }, { 6, 4 },
+            { 6, 3 }, { 6, 2 }, { 6, 1 }, { 6, 0 }, { 7, 0 }, { 8, 1 }, { 8, 2 }, { 8, 3 }, { 8, 4 }, { 8, 5 },
+            { 8, 6 }, { 9, 6 }, { 10, 6 }, { 11, 6 }, { 12, 6 }, { 13, 6 }, { 14, 6 }, { 14, 7 }, { 13, 8 }, { 12, 8 },
+            { 11, 8 }, { 10, 8 }, { 9, 8 }, { 8, 8 }, { 8, 9 }, { 8, 10 }, { 8, 11 }, { 8, 12 }, { 8, 13 }, { 8, 14 },
+            { 7, 14 }, { 6, 13 }, { 6, 12 }, { 6, 11 }, { 6, 10 }, { 6, 9 }, { 6, 8 }, { 5, 8 }, { 4, 8 }, { 3, 8 },
+            { 2, 8 }, { 1, 8 }, { 0, 8 }, { 0, 7 } };
+    public static int winPath[][] = { { 7, 1, 0 }, { 7, 2, 0 }, { 7, 3, 0 }, { 7, 4, 0 }, { 7, 5, 0 }, { 7, 6, 0 },
+            { 1, 7, 0 }, { 2, 7, 0 }, { 3, 7, 0 }, { 4, 7, 0 }, { 5, 7, 0 }, { 6, 7, 0 }, { 7, 13, 0 }, { 7, 12, 0 },
+            { 7, 11, 0 }, { 7, 10, 0 }, { 7, 9, 0 }, { 7, 8, 0 }, { 13, 7, 0 }, { 12, 7, 0 }, { 11, 7, 0 },
+            { 10, 7, 0 }, { 9, 7, 0 }, { 8, 7, 0 } };
     public int startStableCoordinates[][][] = {
-        {{10,1},{10,4},{13,1},{13,4}},
-        {{1,1},{1,4},{4, 1},{4, 4}},
-        {{1, 10}, {1, 13}, {4, 10}, {4, 13}},
-        {{10,10}, {10,13}, {13,10}, {13,13}},
+            { { 10, 1 }, { 10, 4 }, { 13, 1 }, { 13, 4 } },
+            { { 1, 1 }, { 1, 4 }, { 4, 1 }, { 4, 4 } },
+            { { 1, 10 }, { 1, 13 }, { 4, 10 }, { 4, 13 } },
+            { { 10, 10 }, { 10, 13 }, { 13, 10 }, { 13, 13 } },
     };
     public static int deployCoordinates[][] = {
-        {8,0},
-        {0,6},
-        {6,14},
-        {14,8}
+            { 8, 0 },
+            { 0, 6 },
+            { 6, 14 },
+            { 14, 8 }
     };
 
-    public static int deployIndex[] = {13, 52, 39, 26};
+    public static int deployIndex[] = { 13, 52, 39, 26 };
 
     public enum TileType {
         T1, T2, BF, B, G, GF, RF, R, Y, YF, BC, YC, RC, GC, B31, B29, B30;
     }
-
 
     private static int TILE_WIDTH = 64;
     private static int TILE_HEIGHT = 32;
@@ -80,22 +98,21 @@ public class Board implements PaintComponent{
             System.out.println("Board.java:" + e.getMessage());
         }
         // try{
-        //     InputStream is = getClass().getResourceAsStream(filename);
-        //     BufferedReader br = new BufferedReader(is);
-        //     String line = br.readLine();
-        //     int col = 0, row = 0;
-        //     while(col < 15 && row < 15){
-        //         String[] tiles = line.split(" ");
+        // InputStream is = getClass().getResourceAsStream(filename);
+        // BufferedReader br = new BufferedReader(is);
+        // String line = br.readLine();
+        // int col = 0, row = 0;
+        // while(col < 15 && row < 15){
+        // String[] tiles = line.split(" ");
 
-
-        //     }
+        // }
         // }catch(Exception e){
 
         // }
     }
 
     // private enum TileType {
-    //     T1, T2, BF, B, G, GF, RF, R, Y, YF, BC, YC, RC, GC;
+    // T1, T2, BF, B, G, GF, RF, R, Y, YF, BC, YC, RC, GC;
     // }
 
     private BufferedImage getImageFromTileType(String type) {
@@ -129,14 +146,14 @@ public class Board implements PaintComponent{
             System.out.println("Invalid coordinates: (" + row + ", " + col + ")");
         }
     }
-    
+
     public BufferedImage getTileIMG(int x, int y) {
         if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
             return map[y][x];
         }
         return null;
     }
-    
+
     private TileType parseTileType(String type) {
         try {
             return TileType.valueOf(type.toUpperCase());
@@ -145,6 +162,7 @@ public class Board implements PaintComponent{
         }
         return null;
     }
+
     public TileType getTileEnum(int x, int y) {
         if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
             return tilesType[y][x];
@@ -154,9 +172,9 @@ public class Board implements PaintComponent{
 
     @Override
     public void Paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
-        for(int row = 0; row < BOARD_SIZE; row++){
-            for(int col = 0; col < BOARD_SIZE; col++){
+        Graphics2D g2d = (Graphics2D) g;
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 BufferedImage tile = map[row][col];
                 if (tile != null) {
                     int x = startX + (col - row) * TILE_WIDTH / 2;
@@ -167,20 +185,19 @@ public class Board implements PaintComponent{
         }
     }
 
-
-    //doi toa do
-    public static int[] changeRelativeCoordinates(int row, int col){
+    // doi toa do
+    public static int[] changeRelativeCoordinates(int row, int col) {
         int[] result = new int[2];
         result[0] = startX + (col - row) * TILE_WIDTH / 2;
         result[1] = startY + (col + row) * TILE_HEIGHT / 2;
         return result;
-        
+
     }
 
-    //getnext
-    public static int[] getNextTile(int row, int col){
+    // getnext
+    public static int[] getNextTile(int row, int col) {
         int[] result = new int[2];
-        for (int i = 0; i < deployIndex.length; i++){
+        for (int i = 0; i < deployIndex.length; i++) {
             if (row == deployCoordinates[i][0] && col == deployCoordinates[i][1]) {
                 if (i == 1) {
                     result[0] = path[0][0];
@@ -205,26 +222,63 @@ public class Board implements PaintComponent{
                 break;
             }
         }
-        return  result;
+        return result;
     }
 
     public void randomizeTileType() {
         Random random = new Random();
+        Random random2 = new Random();
         int randomIndex = random.nextInt(specialPath.length);
         int x = specialPath[randomIndex][0];
         int y = specialPath[randomIndex][1];
-    
-        SpecialTilesTypeMap[] specialTiles = SpecialTilesTypeMap.values();
-        SpecialTilesTypeMap randomTileType = specialTiles[random.nextInt(specialTiles.length)];
-    
-        tilesType[x][y] = TileType.valueOf(randomTileType.name());
-    
-        BufferedImage newImage = getImageFromTileType(randomTileType.name());
-        updateTileImage(x, y, newImage);
-    
-        // System.out.println("Tile at (" + x + ", " + y + ") changed to " + randomTileType);
-    }
+        int randomTile = random.nextInt(3) + 1;
+        TileType test = null;
+        switch (randomTile) {
+            case 1:
+                test = TileType.B29;
+                break;
+            case 2:
+                test = TileType.B30;
+                break;
+            case 3:
+                test = TileType.B31;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        // SpecialTilesTypeMap[] specialTiles = SpecialTilesTypeMap.values();
+        // SpecialTilesTypeMap randomTileType = specialTiles[random.nextInt(specialTiles.length)];
 
+        tilesType[x][y] = test;
+
+        if (test != null) {
+            BufferedImage newImage = getImageFromTileType(test.name());
+            updateTileImage(x, y, newImage);
+        } else {
+            System.err.println("Error: TileType 'test' is null.");
+        }
+
+        // System.out.println("Tile at (" + x + ", " + y + ") changed to " +
+        // randomTileType);
+    }
+    public static int[] getPreviousTile(int row, int col) {
+        for (int i = 0; i < path.length; i++) {
+            if (path[i][0] == row && path[i][1] == col) {
+                int prevIndex = (i == 0) ? path.length - 1 : i - 1;
+                return new int[]{path[prevIndex][0], path[prevIndex][1]};
+            }
+        }
+        return new int[]{row, col}; // Trả về vị trí hiện tại nếu không tìm thấy
+    }
+    public void printfTileType(){
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                // cout << tilesType[i][j] << " ";
+                System.err.print(tilesType[i][j] + " ");
+            }
+            System.err.println("");
+        }
+    }
     // }
     // public Board(){
     // loadImages();
