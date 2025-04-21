@@ -170,8 +170,20 @@ public class GameController implements UpdateComponent {
         // Neu co
         // xoa csh va ket thuc luot
         if (sh.getState() == SeaHorseState.EndAction) {
+            TileType currentType = game.getBoard().getTileEnum(sh.getRelative()[1], sh.getRelative()[0]);
+            // if(isSpecialTile(currentType)){
+                
+            // }
+            if(sh.getSeaHorseData().getStepLeft() == 0){
+                int[] currentPosition = sh.getRelative();
+                TileType currentTileType = game.getBoard().getTileEnum(currentPosition[1], currentPosition[0]);
+                if (isSpecialTile(currentTileType)) {
+                    handleSpecialTile(currentType, sh);
+                }
+            }
             sh.setState(SeaHorseState.CanMove);
             EndPlayerTurn();
+
         }
     }
 
@@ -207,15 +219,17 @@ public class GameController implements UpdateComponent {
         game.getSkipButton().ResetButton();
         // System.out.println(game.getCurrentPlayerIndex());
         turnCounter++;
-        if(turnCounter == 5){
+        if(turnCounter == 9){
             game.getBoard().resetTileType();
-            for(int i = 0 ; i < 5; i++){
+            for(int i = 0 ; i < 6; i++){
                 game.getBoard().randomizeTileType();
             }
             panel.repaint();
             turnCounter = 0;
 
         }
+        // game.getBoard().randomizeTileType();
+        // panel.repaint();
     }
 
     public Game getGameData() {
@@ -315,7 +329,7 @@ public class GameController implements UpdateComponent {
     public void handleSpecialTile(TileType tileType, SeaHorseController seaHorse) {
         if (tileType == null) return;
         if(tileType == TileType.B31){
-            System.out.println("Special Tile: Green");
+            System.out.println("Special Tile: Dark Blue");
             // int[] test = seaHorse.getRelative();
             // System.err.println(test[0] + " " + test[1]);
             // seaHorse.Move(1, seaHorse.getRelative()[0], seaHorse.getRelative()[1]);
@@ -328,7 +342,7 @@ public class GameController implements UpdateComponent {
             // System.err.println(test[0] + " " + test[1]);
         }
         if(tileType == TileType.B30){
-            System.out.println("Special Tile: Black");
+            System.out.println("Special Tile: Hole");
             // int[] test = seaHorse.getRelative();
             // System.err.println(test[0] + " " + test[1]);
 
