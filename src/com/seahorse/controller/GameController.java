@@ -62,7 +62,8 @@ public class GameController implements UpdateComponent {
         // Tự động tung xúc xắc và bắt đầu lượt cho bot
         if (game.getPlayerController() instanceof BotController && game.getDiceNumber() == 0) {
             try {
-                Thread.sleep(2); // Độ trễ 1 giây để mô phỏng hành động
+                Thread.yield();
+                Thread.sleep(200);
                 RollDice();
                 StartPlayerTurn();
             } catch (InterruptedException e) {
