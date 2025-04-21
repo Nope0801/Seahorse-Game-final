@@ -3,19 +3,23 @@ package com.seahorse.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.seahorse.model.Board.TileType;
+
 public class GameSaveData implements Serializable {
     
     private List<PlayerSaveData> players;
     private int currentPlayerIndex;
     private int diceNumber;
     private int playersNumber;
+    private TileType[][] tiles;
 
-    public GameSaveData(List<PlayerSaveData> players, int currentPlayerIndex, int diceNumber, int nb) {
+    public GameSaveData(List<PlayerSaveData> players, int currentPlayerIndex, int diceNumber, int nb, TileType[][] tiles) {
         
         this.players = players;
         this.currentPlayerIndex = currentPlayerIndex;
         this.diceNumber = diceNumber;
         playersNumber = nb;
+        this.tiles = tiles;
     }
     // public GameSaveData( List<PlayerSaveData> players, int currentPlayerIndex, int diceNumber) {
        
@@ -37,5 +41,8 @@ public class GameSaveData implements Serializable {
     }
     public int getPlayersNumber() {
         return playersNumber;
+    }
+    public TileType[][] getTiles() {
+        return tiles;
     }
 }

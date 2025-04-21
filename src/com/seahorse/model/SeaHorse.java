@@ -157,6 +157,17 @@ public class SeaHorse {
         return pixelSpeed;
     }
    
-    
+    public void setInFinish(boolean isInFinish) {
+        this.isInFinish = isInFinish;
+    }
+    public void setInGoal(boolean isInGoal) {
+        this.isInGoal = isInGoal;
+    }
+    public boolean getIsInFinish(){
+        return this.isInFinish;
+    }   
+    public boolean getIsInGoal(){
+        return this.isInGoal;
+    } 
 
 }

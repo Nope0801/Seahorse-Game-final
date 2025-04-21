@@ -195,7 +195,12 @@ public class Board implements PaintComponent{
         }
         return  result;
     }
-
+    public TileType[][] getTilesType() {
+        return tilesType;
+    }
+    public void setTilesType(TileType[][] tilesType) {
+        this.tilesType = tilesType;
+    }
 
     // }
     // public Board(){

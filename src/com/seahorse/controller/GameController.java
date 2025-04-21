@@ -242,8 +242,9 @@ public class GameController implements UpdateComponent {
         int currentPlayerIndex = game.getCurrentPlayerIndex();
         int diceNumber = game.getDiceNumber();
         int playersNumber = game.getPlayersController().size();
+        TileType[][] tileType = game.getBoard().getTilesType();
 
-        GameSaveData saveData = new GameSaveData(players, currentPlayerIndex, diceNumber, playersNumber);
+        GameSaveData saveData = new GameSaveData(players, currentPlayerIndex, diceNumber, playersNumber, tileType);
 
         GameSaveManager.saveGame(saveData);
     }
@@ -254,6 +255,7 @@ public class GameController implements UpdateComponent {
             return;
         }
         Game game = gameController.getGameData();
+        game.getBoard().setTilesType(saveData.getTiles());
 
         // Lặp qua từng người chơi
         for (int i = 0; i < saveData.getPlayers().size(); i++) {
@@ -274,7 +276,9 @@ public class GameController implements UpdateComponent {
                     j,
                     horseData.getRelativeX(),
                     horseData.getRelativeY(),
-                    horseData.getState()
+                    horseData.getState(),
+                    horseData.getIsInFinish(), 
+                    horseData.getIsInGoal() 
                 );
             }
         }
@@ -284,12 +288,6 @@ public class GameController implements UpdateComponent {
         game.getDiceController().SetDiceDefault();
         game.setDiceNumber(0);
 
-        // Reset các nút bấm
-        game.getRollButton().ResetButton();
-        game.getSkipButton().ResetButton();
-
-        // Có thể cần reset trạng thái khác (ví dụ: controlledSeaHorse)
-        game.setControlledSeaHorse(null);
         System.out.println("Load game thành công từ GameSaveData!");
     }
 
