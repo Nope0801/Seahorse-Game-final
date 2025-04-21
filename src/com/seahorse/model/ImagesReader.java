@@ -20,7 +20,10 @@ public class ImagesReader {
     private BufferedImage greencircle;
     private BufferedImage redcircle;
     private BufferedImage yellowcircle;
-
+    private BufferedImage B31;
+    private BufferedImage B30;
+    private BufferedImage B29;
+    
     private BufferedImage background1;
 
     public ImagesReader(){
@@ -39,6 +42,9 @@ public class ImagesReader {
             this.greencircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_green_circle_flat.png"));
             this.redcircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_red_circle_flat.png"));
             this.yellowcircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_yellow_circle_flat.png"));
+            // this.B30 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_30.png"));
+            this.B31 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_31.png"));
+            this.B29 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_29.png"));
         }catch(IOException e){
             System.out.println("ImagesReader.java: " + e.getMessage());
         }      
@@ -98,6 +104,18 @@ public class ImagesReader {
 
     public BufferedImage getYellowcircle() {
         return yellowcircle;
+    }
+
+    public BufferedImage getB31() {
+        return B31;
+    }
+
+    public BufferedImage getB30() {
+        return B30;
+    }
+
+    public BufferedImage getB29() {
+        return B29;
     }
 
 }

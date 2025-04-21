@@ -19,7 +19,7 @@ public class GameController implements UpdateComponent {
     private GameThread panel;
     private Game game;
     private GameView gameView;
-
+    private int turnCounter = 0;
     private boolean canShowActive = false;
 
     public GameController(GameThread _panel) {
@@ -206,6 +206,16 @@ public class GameController implements UpdateComponent {
         game.getRollButton().ResetButton();
         game.getSkipButton().ResetButton();
         // System.out.println(game.getCurrentPlayerIndex());
+        turnCounter++;
+        if(turnCounter == 5){
+            game.getBoard().resetTileType();
+            for(int i = 0 ; i < 5; i++){
+                game.getBoard().randomizeTileType();
+            }
+            panel.repaint();
+            turnCounter = 0;
+
+        }
     }
 
     public Game getGameData() {
@@ -301,5 +311,102 @@ public class GameController implements UpdateComponent {
             }
             System.out.println("Entities map cleared.");
         }
+    }
+    public void handleSpecialTile(TileType tileType, SeaHorseController seaHorse) {
+        if (tileType == null) return;
+        if(tileType == TileType.B31){
+            System.out.println("Special Tile: Green");
+            // int[] test = seaHorse.getRelative();
+            // System.err.println(test[0] + " " + test[1]);
+            // seaHorse.Move(1, seaHorse.getRelative()[0], seaHorse.getRelative()[1]);
+                        
+        }
+
+        if(tileType == TileType.B29){
+            System.out.println("Special Tile: Pink");
+            // int[] test = seaHorse.getRelative();
+            // System.err.println(test[0] + " " + test[1]);
+        }
+        if(tileType == TileType.B30){
+            System.out.println("Special Tile: Black");
+            // int[] test = seaHorse.getRelative();
+            // System.err.println(test[0] + " " + test[1]);
+
+        }
+        // switch (tileType) {
+        //     case B31 -> {
+                // Di chuyển thêm 3 bước
+                // System.out.println("Special Tile: B31 - Move forward 3 steps");
+                // int[] currentPos = seaHorse.getRelative();
+                // System.err.println(currentPos[0] + " " + currentPos[1]);
+                // int[] nextTile = currentPos;
+                // for (int i = 0; i < 3; i++) {
+                //     nextTile = Board.getNextTile(nextTile[0], nextTile[1]);
+                //     if (!CheckTile(nextTile[0], nextTile[1])) {
+                //         // Nếu ô tiếp theo bị chiếm, dừng lại
+                //         break;
+                //     }
+                // }
+                // if (nextTile != currentPos) {
+                //     RemoveSeaHorseOnMap(currentPos[0], currentPos[1]);
+                //     AddSeaHorseOnMap(seaHorse, nextTile[0], nextTile[1]);
+                //     seaHorse.Move(3, nextTile[0], nextTile[1]);
+                //     seaHorse.setState(SeaHorseState.IsStep);
+                // }
+        //     }
+    
+        //     case B29 -> {
+        //         // Quay lại 2 bước
+        //         System.out.println("Special Tile: B29 - Move backward 2 steps");
+        //         // int[] currentPos = seaHorse.getRelative();
+        //         // int[] prevTile = currentPos;
+        //         // // Lùi lại 2 bước (giả sử Board có phương thức getPreviousTile)
+        //         // for (int i = 0; i < 2; i++) {
+        //         //     // Cần thêm phương thức getPreviousTile trong Board
+        //         //     prevTile = Board.getPreviousTile(prevTile[0], prevTile[1]);
+        //         //     if (!CheckTile(prevTile[0], prevTile[1])) {
+        //         //         // Nếu ô trước bị chiếm, dừng lại
+        //         //         break;
+        //         //     }
+        //         // }
+        //         // if (prevTile != currentPos) {
+        //         //     RemoveSeaHorseOnMap(currentPos[0], currentPos[1]);
+        //         //     AddSeaHorseOnMap(seaHorse, prevTile[0], prevTile[1]);
+        //         //     seaHorse.Move(2, prevTile[0], prevTile[1]);
+        //         //     seaHorse.setState(SeaHorseState.IsStep);
+        //         // }
+        //     }
+    
+        //     case B30 -> {
+        //         // Đổi lượt ngay lập tức
+        //         System.out.println("Special Tile: B30 - Skip turn");
+        //     }
+    
+        //     default -> System.out.println("Normal Tile: " + tileType);
+        // }
+    }
+    // private boolean isSpecialTile(TileType tileType) {
+    //     for (SpecialTilesTypeMap specialTile : SpecialTilesTypeMap.values()) {
+    //         if (specialTile.name().equals(tileType.name())) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+    private boolean isSpecialTile(TileType tileType) {
+        if(null != tileType)switch (tileType) {
+            case B31 -> {
+                return true;
+            }
+            case B30 -> {
+                return true;
+            }
+            case B29 -> {
+                return true;
+            }
+            default -> {
+            }
+        }
+        return false;
     }
 }
