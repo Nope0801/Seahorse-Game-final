@@ -45,4 +45,5 @@ public class PlayerSaveData implements Serializable {
     public void setSeaHorses(List<SeaHorseSaveData> seaHorses) {
         this.seaHorses = seaHorses;
     }
+    
 }

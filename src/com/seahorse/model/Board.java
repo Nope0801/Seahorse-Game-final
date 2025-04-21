@@ -256,6 +256,18 @@ public class Board implements PaintComponent{
         // System.out.println("Tile at (" + x + ", " + y + ") changed to " +
         // randomTileType);
     }
+    public void PaintTile(){
+        for(int i=0;i<15;i++){
+            for(int j=0;j<15;j++){
+                if (tilesType[i][j] != null) {
+                    BufferedImage newImage = getImageFromTileType(tilesType[i][j].name());
+                    updateTileImage(i, j, newImage);
+                } else {
+                    System.err.println("Error: TileType 'test' is null.");
+                }
+            }
+        }
+    }
 
     // }
     // public Board(){

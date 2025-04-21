@@ -225,7 +225,7 @@ public class GameController implements UpdateComponent {
             for(int i = 0 ; i < 6; i++){
                 game.getBoard().randomizeTileType();
             }
-            panel.repaint();
+            // panel.repaint();
             turnCounter = 0;
 
         }
@@ -268,8 +268,9 @@ public class GameController implements UpdateComponent {
         int diceNumber = game.getDiceNumber();
         int playersNumber = game.getPlayersController().size();
         TileType[][] tileType = game.getBoard().getTilesType();
+        // PlayerNumberAndSkin playerNumberAndSkin = new PlayerNumberAndSkin(PlayerNumberAndSkin.playersNumber, PlayerNumberAndSkin.playersSkin);
 
-        GameSaveData saveData = new GameSaveData(players, currentPlayerIndex, diceNumber, playersNumber, tileType);
+        GameSaveData saveData = new GameSaveData(players, currentPlayerIndex, diceNumber, PlayerNumberAndSkin.playersNumber, PlayerNumberAndSkin.playersSkin, tileType);
 
         GameSaveManager.saveGame(saveData);
     }
@@ -314,7 +315,7 @@ public class GameController implements UpdateComponent {
         game.setCurrentPlayerIndex(saveData.getCurrentPlayerIndex());
         game.getDiceController().SetDiceDefault();
         game.setDiceNumber(0);
-
+        game.getBoard().PaintTile();
         System.out.println("Load game thành công từ GameSaveData!");
     }
 
