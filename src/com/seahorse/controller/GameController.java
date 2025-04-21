@@ -13,6 +13,8 @@ public class GameController implements UpdateComponent{
     private Game game;
     private GameView gameView;
 
+    private int turnCounter = 0;
+
     private boolean canShowActive = false;
     public GameController(GameThread _panel) {
         panel = _panel;
@@ -216,8 +218,16 @@ public class GameController implements UpdateComponent{
         game.getRollButton().ResetButton();
         game.getSkipButton().ResetButton();
         // System.out.println(game.getCurrentPlayerIndex());
-        game.getBoard().randomizeTileType();
-        panel.repaint();
+        turnCounter++;
+        if(turnCounter == 5){
+            game.getBoard().resetTileType();
+            for(int i = 0 ; i < 5; i++){
+                game.getBoard().randomizeTileType();
+            }
+            panel.repaint();
+            turnCounter = 0;
+
+        }
     }
 
     public Game getGameData() {

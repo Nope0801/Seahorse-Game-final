@@ -224,7 +224,9 @@ public class Board implements PaintComponent {
         }
         return result;
     }
-
+    public void resetTileType() {
+        loadMapFromFile("./../../../resources/map/map03.txt");
+    }
     public void randomizeTileType() {
         Random random = new Random();
         Random random2 = new Random();
