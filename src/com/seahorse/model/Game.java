@@ -135,7 +135,7 @@ public class Game {
 
     public void setBoard() {
         board = new Board();
-        board.loadMapFromFile("./../../../resources/map/map03.txt");
+        board.loadMapFromFile("/resources/map/map03.txt");
     }
 
     public void setWinMenu(int index) {

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import com.seahorse.utils.ImageFromPath;
+
 public class ImagesReader {
     private BufferedImage tileImage1;
     private BufferedImage tileImage2;
@@ -27,27 +29,23 @@ public class ImagesReader {
     private BufferedImage background1;
 
     public ImagesReader(){
-        try{
-            this.tileImage1 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_white.png"));
-            this.tileImage2 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_white_flat.png"));
-            this.blueflat = ImageIO.read(new File("./src/resources/sprites/Land/blocks_blue_flat.png"));
-            this.blue = ImageIO.read(new File("./src/resources/sprites/Land/blocks_blue.png"));
-            this.greenflat = ImageIO.read(new File("./src/resources/sprites/Land/blocks_green_flat.png"));
-            this.green = ImageIO.read(new File("./src/resources/sprites/Land/blocks_green.png"));
-            this.redflat = ImageIO.read(new File("./src/resources/sprites/Land/blocks_red_flat.png"));
-            this.red = ImageIO.read(new File("./src/resources/sprites/Land/blocks_red.png"));
-            this.yellowflat = ImageIO.read(new File("./src/resources/sprites/Land/blocks_yellow_flat.png"));
-            this.yellow = ImageIO.read(new File("./src/resources/sprites/Land/blocks_yellow.png"));
-            this.bluecircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_blue_circle_flat.png"));
-            this.greencircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_green_circle_flat.png"));
-            this.redcircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_red_circle_flat.png"));
-            this.yellowcircle = ImageIO.read(new File("./src/resources/sprites/Land/blocks_yellow_circle_flat.png"));
-            // this.B30 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_30.png"));
-            this.B31 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_31.png"));
-            this.B29 = ImageIO.read(new File("./src/resources/sprites/Land/blocks_29.png"));
-        }catch(IOException e){
-            System.out.println("ImagesReader.java: " + e.getMessage());
-        }      
+        this.tileImage1 = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_white.png");
+        this.tileImage2 = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_white_flat.png");
+        this.blueflat = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_blue_flat.png");
+        this.blue = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_blue.png");
+        this.greenflat = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_green_flat.png");
+        this.green = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_green.png");
+        this.redflat = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_red_flat.png");
+        this.red = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_red.png");
+        this.yellowflat = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_yellow_flat.png");
+        this.yellow = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_yellow.png");
+        this.bluecircle = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_blue_circle_flat.png");
+        this.greencircle = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_green_circle_flat.png");
+        this.redcircle = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_red_circle_flat.png");
+        this.yellowcircle = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_yellow_circle_flat.png");
+        // this.B30 = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_30.png");
+        this.B31 = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_31.png");
+        this.B29 = ImageFromPath.GetBufferedImageFromPath("./src/resources/sprites/Land/blocks_29.png");      
     }
 
     public BufferedImage getTileImage1() {

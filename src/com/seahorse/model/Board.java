@@ -55,10 +55,10 @@ public class Board implements PaintComponent{
     private ImagesReader images;
 
     public Board() {
+        images = new ImagesReader();
         PaintComponent.AddPaint(this);
         map = new BufferedImage[BOARD_SIZE][BOARD_SIZE];
         tilesType = new TileType[BOARD_SIZE][BOARD_SIZE];
-        images = new ImagesReader();
     }
 
     public void loadMapFromFile(String filename) {
@@ -66,9 +66,10 @@ public class Board implements PaintComponent{
         InputStream is = this.getClass().getResourceAsStream(filename);
         if (is == null) {
             System.out.println("Board.java: can't find file " + filename);
+            check = true;
             return;
         }
-
+        
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             String line;
             int y = 0;
@@ -149,9 +150,10 @@ public class Board implements PaintComponent{
         }
         return null;
     }
-
+    boolean check = false;
     @Override
     public void Paint(Graphics g) {
+        if (check) g.drawImage(images.getTileImage1(), 0, 50, 64, 64,null);
         startX = GameSetting.screenWidth / 2 - 32;
         startY = GameSetting.screenHeight / 2 - 286;
         Graphics2D g2d = (Graphics2D)g;
@@ -161,7 +163,7 @@ public class Board implements PaintComponent{
                 if (tile != null) {
                     int x = startX + (col - row) * TILE_WIDTH / 2;
                     int y = startY + (col + row) * TILE_HEIGHT / 2;
-                    g2d.drawImage(tile, x, y, null);
+                    g2d.drawImage(tile, x, y, 64, 64,null);
                 }
             }
         }

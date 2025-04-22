@@ -4,10 +4,10 @@ import com.seahorse.model.Board;
 import com.seahorse.model.SeaHorse;
 import com.seahorse.utils.SeaHorseState;
 import com.seahorse.utils.UpdateComponent;
+import com.seahorse.utils.WavPlayer;
 import com.seahorse.view.SeaHorseView;
 import java.util.ArrayList;
 import java.util.List;
-
 public class SeaHorseController implements UpdateComponent {
     public PlayerController player;
     private SeaHorse seaHorseData;
@@ -56,6 +56,7 @@ public class SeaHorseController implements UpdateComponent {
                     EndStep();
                 }
                 // seaHorseData.setY(seaHorseData.getY2());
+                WavPlayer.PlaySound("/resources/sprites/Soundtrack/rubber_duck_squeak.wav");
             }
         }
 
@@ -82,6 +83,7 @@ public class SeaHorseController implements UpdateComponent {
     }
 
     public void BackToStable() {
+        WavPlayer.PlaySound("/resources/sprites/Soundtrack/fail_trumpet.wav");
         seaHorseData.setRelativeX(spawnPos[0]);
         seaHorseData.setRelativeY(spawnPos[1]);
         seaHorseData.setX1(seaHorseData.getX());

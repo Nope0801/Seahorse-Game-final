@@ -63,6 +63,8 @@ public class GameView implements PaintComponent{
     @Override
     public void Paint(Graphics g) {
         //DRAW BGR
+        game.getBoard().Paint(g);
+
         g.drawImage(bgrImg, 0, 0, GameSetting.screenWidth, GameSetting.screenHeight, null);
         
         startPos = new int[][]{
