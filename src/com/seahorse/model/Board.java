@@ -66,7 +66,7 @@ public class Board implements PaintComponent{
         InputStream is = this.getClass().getResourceAsStream(filename);
         if (is == null) {
             System.out.println("Board.java: can't find file " + filename);
-            check = true;
+            // check = true;
             return;
         }
         
